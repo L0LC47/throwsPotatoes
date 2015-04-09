@@ -1,10 +1,12 @@
 bin/*
 ant-build/*
-src/lexical/Lexer.java
-src/syntactical/Parser.java
-src/syntactical/sym.java
+#src/lexical/Lexer.java
+#src/syntactical/Parser.java
+#src/syntactical/sym.java
 testcases/*.dot
 testcases/*.class
+testcases/*.main()
+testcases/*.output()
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
