@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="Kitten" basedir="." default="run-compiled-code" xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="throwsPotatoes" basedir="." default="run-compiled-code" xmlns:ivy="antlib:org.apache.ivy.ant">
 
 	<!-- load the properties stored into the external file -->
 	<property file="build.properties" />
@@ -30,7 +30,7 @@
 		</java>
 	</target>
 
-	<target name="compile-lexical-analyzer" depends="generate-lexical-analyzer">
+	<target name="compile-lexical-analyzer" depends="generate-syntactical-analyzer">
 		<javac includeantruntime="false" srcdir="${build.in.folder}" destdir="${build.out.folder}" encoding="utf8" debug="on" debuglevel="lines,vars,source">
 			<include name="${lexical.package}/*.java" />
 			<classpath>
@@ -55,7 +55,7 @@
 		</java>
 	</target>
 
-	<target name="generate-syntactical-analyzer" depends="compile-lexical-analyzer">
+	<target name="generate-syntactical-analyzer"  depends="generate-lexical-analyzer">
 		<mkdir dir="${build.out.folder}" />
 		<javac includeantruntime="false" srcdir="${build.in.folder}" destdir="${build.out.folder}" encoding="utf8" debug="on" debuglevel="lines,vars,source">
 			<include name="${syntactical.generator.source}" />

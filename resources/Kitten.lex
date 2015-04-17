@@ -169,6 +169,9 @@ String myString = "";
 <YYINITIAL>void         {return tok(sym.VOID, null);}
 <YYINITIAL>true         {return tok(sym.TRUE, null);}
 <YYINITIAL>false        {return tok(sym.FALSE, null);}
+<YYINITIAL>test         {return tok(sym.TEST, null);}
+<YYINITIAL>assert       {return tok(sym.ASSERT, null);}
+<YYINITIAL>fixture      {return tok(sym.FIXTURE, null);}
 <YYINITIAL>","	        {return tok(sym.COMMA, null);}
 <YYINITIAL>";"          {return tok(sym.SEMICOLON, null);}
 <YYINITIAL>"("          {return tok(sym.LPAREN, null);}
