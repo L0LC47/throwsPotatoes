@@ -166,9 +166,8 @@ class_members ::=
    | TEST:t ID:name com:body class_members:next
         /* TODO: absyn/TestDeclaration.java */
      {: RESULT = next; /* new TestDeclaration(tleft, name, body, next); */ :}
-   | FIXTURE:f com:body class_members:next
-        /* TODO: absyn/FixtureDeclaration.java */
-     {: RESULT = next; /* new FixtureDeclaration(fleft, body, next); */ :};
+   | FIXTURE:f com:body class_members:next        
+     {: RESULT = new FixtureDeclaration(fleft, body, next); :};
 
 // a comma-separated and possibly empty list
 // of formal parameters of a method or constructor
