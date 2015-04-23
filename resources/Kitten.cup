@@ -165,10 +165,10 @@ class_members ::=
 	(mleft, returnType, name, formals, body, next); :}
    | TEST:t ID:name com:body class_members:next
         /* TODO: absyn/TestDeclaration.java */
-     {: RESULT = next; /* new TestDeclaration(name, body); */ :}
+     {: RESULT = next; /* new TestDeclaration(tleft, name, body, next); */ :}
    | FIXTURE:f com:body class_members:next
         /* TODO: absyn/FixtureDeclaration.java */
-     {: RESULT = next; /* new FixtureDeclaration(body); */ :};
+     {: RESULT = next; /* new FixtureDeclaration(fleft, body, next); */ :};
 
 // a comma-separated and possibly empty list
 // of formal parameters of a method or constructor
@@ -214,8 +214,7 @@ com ::=
    | exp:receiver DOT:d ID:name LPAREN expseq:actuals RPAREN
      {: RESULT = new MethodCallCommand(dleft, receiver, name, actuals); :}
    | ASSERT:a LPAREN exp:e RPAREN
-    /* TODO: absyn/Assert.java  */
-     {: RESULT = new Skip(eleft); /* new Assert(e); */:} ;
+     {: RESULT = new Assert(aleft, e); :} ;
 
 // a non-empty sequence of commands
 
