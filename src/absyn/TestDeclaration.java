@@ -4,7 +4,7 @@ import java.io.FileWriter;
 
 import semantical.TypeChecker;
 import types.ClassType;
-import types.FixtureSignature;
+import types.TestSignature;
 import types.TypeList;
 import types.VoidType;
 
@@ -15,16 +15,17 @@ import types.VoidType;
  * @author <A HREF="mailto:info@l0lc47.tk">L0LC47</A>
  */
 
-public class FixtureDeclaration extends ClassMemberDeclaration {
+public class TestDeclaration extends ClassMemberDeclaration {
 
     /**
      * The signature of this fixture or method. This is {@code null} if this
      * fixture or method has not been type-checked yet.
      */
 
-    private FixtureSignature sig;
+    private TestSignature sig;
     
 	private Command body;
+	private String name;
 
 	/**
 	 * Constructs the abstract syntax of a fixture declaration.
@@ -36,8 +37,9 @@ public class FixtureDeclaration extends ClassMemberDeclaration {
 	 *             subsequent class member, if any
 	 */
 
-	public FixtureDeclaration(int pos, Command body, ClassMemberDeclaration next) {
+	public TestDeclaration(int pos, String name, Command body, ClassMemberDeclaration next) {
 		super(pos,next);
+		this.name = name;
     	this.body = body;
 	}
 	
@@ -47,7 +49,7 @@ public class FixtureDeclaration extends ClassMemberDeclaration {
      * @param cSig the code signature of this fixture.
      */
 
-    protected void setSignature(FixtureSignature cSig) {
+    protected void setSignature(TestSignature cSig) {
     	this.sig = cSig;
     }
 
@@ -59,7 +61,7 @@ public class FixtureDeclaration extends ClassMemberDeclaration {
      */
 
     @Override
-    public FixtureSignature getSignature() {
+    public TestSignature getSignature() {
     	return sig;
     }
     
@@ -73,6 +75,9 @@ public class FixtureDeclaration extends ClassMemberDeclaration {
     	return body;
     }
 
+    public String getName() {
+    	return name;
+    }
 	/**
 	 * Adds arcs between the dot node for this piece of abstract syntax
 	 * and those representing the formal parameters and body of the fixture.
@@ -93,12 +98,12 @@ public class FixtureDeclaration extends ClassMemberDeclaration {
 
 	@Override 
 	protected void addTo(ClassType clazz) {
-		FixtureSignature cSig = new FixtureSignature (clazz, this);
-		// TODO:
-		clazz.addFixture(cSig);
+		TestSignature cSig = new TestSignature (clazz, name, this);
+
+		clazz.addTest(cSig);
 
 		// we record the signature of this constructor inside this abstract syntax
-		// TODO:
+
 		setSignature(cSig);
 	}
 

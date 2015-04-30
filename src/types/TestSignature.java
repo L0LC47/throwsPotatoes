@@ -1,7 +1,7 @@
 package types;
 
 import translation.Block;
-import absyn.FixtureDeclaration;
+import absyn.TestDeclaration;
 import bytecode.CONSTRUCTORCALL;
 import bytecode.LOAD;
 
@@ -11,7 +11,7 @@ import bytecode.LOAD;
  * @author <A HREF="mailto:info@l0lc47.tk">L0LC47</A>
  */
 
-public class FixtureSignature extends ClassMemberSignature {
+public class TestSignature extends ClassMemberSignature {
 
     /**
      * The intermediate Kitten code for this constructor or method.
@@ -22,15 +22,18 @@ public class FixtureSignature extends ClassMemberSignature {
     private Block code;
 
     /**
-     * Builds a signature for a fixture object.
+     * Builds a signature for a test object.
      *
      * @param clazz the class where this code is defined
      * @param abstractSyntax the abstract syntax of the declaration of this code
      */
 
-    public FixtureSignature(ClassType clazz, FixtureDeclaration abstractSyntax) {
-
+    private String name;
+    
+    public TestSignature(ClassType clazz, String name, TestDeclaration abstractSyntax) {
+    	
     	super(clazz,abstractSyntax);
+    	this.name = name;
     }
 
     @Override
@@ -40,12 +43,16 @@ public class FixtureSignature extends ClassMemberSignature {
 
     @Override
     public int hashCode() {
-    	return 42;//getDefiningClass().hashCode();
+    	return getDefiningClass().hashCode();
     }
 
     @Override
     public String toString() {
-    	return getDefiningClass().toString();
+    	return getDefiningClass().toString() + getName();
+    }
+    
+    public String getName() {
+    	return name;
     }
 
     /**
@@ -55,8 +62,8 @@ public class FixtureSignature extends ClassMemberSignature {
      */
 
     @Override
-    public FixtureDeclaration getAbstractSyntax() {
-    	return (FixtureDeclaration) super.getAbstractSyntax();
+    public TestDeclaration getAbstractSyntax() {
+    	return (TestDeclaration) super.getAbstractSyntax();
     }
 
     /**

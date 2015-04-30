@@ -59,7 +59,18 @@ public final class ClassType extends ReferenceType {
 	 */
 
 	private final Set<ConstructorSignature> constructors = new HashSet<>();
+	
+	/**
+	 * The set of fixtures signatures in this class.
+	 */
 
+	private Set<FixtureSignature> fixtures = new HashSet<>();
+	
+	/**
+	 * The set of tests signatures in this class.
+	 */
+
+	private Set<TestSignature> tests = new HashSet<>();
 	/**
 	 * A map from method symbols to the set of signatures of the methods with
 	 * that name. Because of overloading, more than one method might have a given name.
@@ -84,6 +95,7 @@ public final class ClassType extends ReferenceType {
 	 */
 	
 	private boolean typeChecked;
+
 
 	/**
 	 * Constructs a class type with the given name. If the class
@@ -296,6 +308,29 @@ public final class ClassType extends ReferenceType {
 
 		// we add this new method
 		set.add(sig);
+	}
+	
+	
+	/**
+	 * Adds a fixture to this class. If a fixture with the given
+	 * signature already existed, it is overwritten.
+	 *
+	 * @param cSig the signature of the fixture
+	 */
+	
+	public void addFixture(FixtureSignature cSig) {
+		fixtures.add(cSig);
+		
+	}
+	
+	/**
+	 * Adds a test to this class. If a test with the given
+	 * signature already existed, it is overwritten.
+	 *
+	 */
+
+	public final void addTest(TestSignature sig) {
+		tests.add(sig);
 	}
 
 	/**
@@ -625,4 +660,10 @@ public final class ClassType extends ReferenceType {
 			abstractSyntax.toDot(file);
 		}
 	}
+
+	public void addFixture(TestSignature cSig) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

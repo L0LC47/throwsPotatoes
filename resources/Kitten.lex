@@ -148,7 +148,8 @@ String myString = "";
 <YYINITIAL>"\""         {myString=""; yybegin(STRING);}
 <YYINITIAL>[ \t\f]		{}
 <YYINITIAL>"/*"         {commentCount++; yybegin(COMMENT);}
-<YYINITIAL>\n	        {newline();}
+<YYINITIAL>\r\n 	    {newline();}
+<YYINITIAL>\n           {newline();}
 <YYINITIAL>while        {return tok(sym.WHILE, null);}
 <YYINITIAL>for          {return tok(sym.FOR, null);}
 <YYINITIAL>method       {return tok(sym.METHOD, null);}
