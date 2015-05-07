@@ -94,11 +94,10 @@ public class FixtureDeclaration extends ClassMemberDeclaration {
 	@Override 
 	protected void addTo(ClassType clazz) {
 		FixtureSignature cSig = new FixtureSignature (clazz, this);
-		// TODO:
+		
 		clazz.addFixture(cSig);
 
 		// we record the signature of this constructor inside this abstract syntax
-		// TODO:
 		setSignature(cSig);
 	}
 
@@ -118,19 +117,15 @@ public class FixtureDeclaration extends ClassMemberDeclaration {
 		TypeChecker checker = new TypeChecker(VoidType.INSTANCE, clazz.getErrorMsg());
 		checker = checker.putVar("this", clazz);
 
-		// we type-check the body of the constructor in the resulting type-checker
+		// we type-check the body of the fixture in the resulting type-checker
 		getBody().typeCheck(checker);
 
-		// we check that there is no dead-code in the body of the constructor
+		// we check that there is no dead-code in the body of the fixture
 		getBody().checkForDeadcode();
 
-		// if our superclass exists, it must contain an empty constructor,
-		// that will be chained to this constructor
-		if (clazz.getSuperclass() != null && clazz.getSuperclass().constructorLookup(TypeList.EMPTY) == null)
-			error(checker, clazz.getSuperclass() + " has no empty constructor");
 
-		// constructors return nothing, so that we do not check whether
+		// fixtures return nothing, so that we do not check whether
 		// a return statement is always present at the end of every
-		// syntactical execution path in the body of a constructor
+		// syntactical execution path in the body of a fixture
 	}
 }

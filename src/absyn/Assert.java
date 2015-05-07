@@ -62,10 +62,12 @@ public class Assert extends Command {
 
 	@Override
 	protected TypeChecker typeCheckAux(TypeChecker checker) {
-		// the condition of the loop must be a Boolean expression
+		// the condition of the assert must be a Boolean expression
 		condition.mustBeBoolean(checker);
-		
-		return checker;
+		if(!checker.isAssertAllowed())
+			error("assert not allowed here");
+
+			return checker;
 	}
 
 	/**

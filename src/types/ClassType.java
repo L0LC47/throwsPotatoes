@@ -501,6 +501,37 @@ public final class ClassType extends ReferenceType {
 	}
 
 	/**
+	 * Looks up from this class for the signature of the test
+	 * with exactly the given name, if any.
+	 *
+	 * @param name the name of the test to look up for
+	 * @return the signature of the test, as defined in this class.
+	 * 		   Yields {@code null} if no such method has been found
+	 */
+
+	public final TestSignature testLookup(String name) {
+		if(tests != null) {
+			for(TestSignature test : tests) {
+				if(test.getName().equals(name)) {
+					return test;
+				}
+			}
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * Looks up from this class for the signatures of all fixtures, if any.
+	 * 
+	 * @return the signature of the resulting signatures.
+	 *         Returns an empty set if no signature has been found
+	 */
+	public final Set<FixtureSignature> fixtureLookup() {
+		return fixtures;
+	}
+	
+	/**
 	 * Yields the subset of a set of code signatures whose parameters
 	 * are compatible with those provided and such that no two signatures in
 	 * the subset are one more general than the other.
@@ -659,11 +690,6 @@ public final class ClassType extends ReferenceType {
 		try (FileWriter file = new FileWriter(name + ".dot")) {
 			abstractSyntax.toDot(file);
 		}
-	}
-
-	public void addFixture(TestSignature cSig) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

@@ -38,7 +38,12 @@ public class TestSignature extends ClassMemberSignature {
 
     @Override
     public boolean equals(Object other) {
-    		return false;
+    		if(getClass() == other.getClass()){
+    			TestSignature otherT = (TestSignature) other;
+    			return name == otherT.getName();
+    		}
+    		else
+    			return false;
     }
 
     @Override

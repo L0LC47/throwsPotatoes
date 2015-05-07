@@ -32,22 +32,13 @@ public class FixtureSignature extends ClassMemberSignature {
 
     	super(clazz,abstractSyntax);
     }
-
-    @Override
-    public boolean equals(Object other) {
-    		return false;
-    }
-
-    @Override
-    public int hashCode() {
-    	return 42;//getDefiningClass().hashCode();
-    }
-
+/*
+ // TODO: check
     @Override
     public String toString() {
     	return getDefiningClass().toString();
     }
-
+*/
     /**
      * Yields the abstract syntax of this fixture declaration.
      *

@@ -37,6 +37,8 @@ public class TypeChecker {
 	 */
 
 	private final ErrorMsg errorMsg;
+	
+	private final boolean assertAllowed;
 
 	/**
 	 * Constructs a type-checker.
@@ -47,11 +49,12 @@ public class TypeChecker {
 	 * @param errorMsg the error reporting utility of the type-checker
 	 */
 
-	private TypeChecker(Type returnType, Table<TypeAndNumber> env, int varNum, ErrorMsg errorMsg) {
+	private TypeChecker(Type returnType, Table<TypeAndNumber> env, int varNum, ErrorMsg errorMsg, boolean assertAllowed) {
 		this.returnType = returnType;
 		this.env = env;
 		this.varNum = varNum;
 		this.errorMsg = errorMsg;
+		this.assertAllowed = assertAllowed;
 	}
 
 	/**
@@ -68,6 +71,26 @@ public class TypeChecker {
 		this.env = Table.empty();
 		this.varNum = 0;
 		this.errorMsg = errorMsg;
+		this.assertAllowed = false;
+	}
+	
+	// TODO: Javadoc
+	/**
+	 * Constructs a type-checker having a given expected return type,
+	 * a given error reporting utility, an empty symbol table and that
+	 * has not seen any variable up to now.
+	 *
+	 * @param returnType the expected return type
+	 * @param errorMsg the error reporting utility used to signal errors
+	 * @param assertAllowed
+	 */
+
+	public TypeChecker(Type returnType, ErrorMsg errorMsg, boolean assertAllowed) {
+		this.returnType = returnType;
+		this.env = Table.empty();
+		this.varNum = 0;
+		this.errorMsg = errorMsg;
+		this.assertAllowed = assertAllowed;
 	}
 
 	/**
@@ -93,7 +116,7 @@ public class TypeChecker {
 		// note that in the new type-checker the number of local
 		// variables is one more than in this type-checker
 		return new TypeChecker(returnType,
-			env.put(var, new TypeAndNumber(type, varNum)), varNum + 1, errorMsg);
+			env.put(var, new TypeAndNumber(type, varNum)), varNum + 1, errorMsg, assertAllowed);
 	}
 
 	/**
@@ -148,5 +171,16 @@ public class TypeChecker {
 
 	public boolean anyErrors() {
 		return errorMsg.anyErrors();
+	}
+	
+	// TODO: Javadoc
+	/**
+	 * Yields the type expected by this type-checker for the {@code return} commands.
+	 *
+	 * @return the type expected by this type-checker for the {@code return} commands
+	 */
+
+	public boolean isAssertAllowed() {
+		return assertAllowed;
 	}
 }

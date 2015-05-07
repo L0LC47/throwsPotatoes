@@ -120,22 +120,17 @@ public class TestDeclaration extends ClassMemberDeclaration {
 	@Override
 	protected void typeCheckAux(ClassType clazz) {
 		
-		TypeChecker checker = new TypeChecker(VoidType.INSTANCE, clazz.getErrorMsg());
+		TypeChecker checker = new TypeChecker(VoidType.INSTANCE, clazz.getErrorMsg(), true);
 		checker = checker.putVar("this", clazz);
 
-		// we type-check the body of the constructor in the resulting type-checker
+		// we type-check the body of the test in the resulting type-checker
 		getBody().typeCheck(checker);
 
-		// we check that there is no dead-code in the body of the constructor
+		// we check that there is no dead-code in the body of the test
 		getBody().checkForDeadcode();
 
-		// if our superclass exists, it must contain an empty constructor,
-		// that will be chained to this constructor
-		if (clazz.getSuperclass() != null && clazz.getSuperclass().constructorLookup(TypeList.EMPTY) == null)
-			error(checker, clazz.getSuperclass() + " has no empty constructor");
-
-		// constructors return nothing, so that we do not check whether
+		// tests return nothing, so that we do not check whether
 		// a return statement is always present at the end of every
-		// syntactical execution path in the body of a constructor
+		// syntactical execution path in the body of a test
 	}
 }
