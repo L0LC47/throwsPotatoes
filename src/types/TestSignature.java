@@ -11,7 +11,7 @@ import bytecode.LOAD;
  * @author <A HREF="mailto:info@l0lc47.tk">L0LC47</A>
  */
 
-public class TestSignature extends ClassMemberSignature {
+public class TestSignature extends CodeSignature {
 
     /**
      * The intermediate Kitten code for this constructor or method.
@@ -31,9 +31,7 @@ public class TestSignature extends ClassMemberSignature {
     private String name;
     
     public TestSignature(ClassType clazz, String name, TestDeclaration abstractSyntax) {
-    	
-    	super(clazz,abstractSyntax);
-    	this.name = name;
+    	super(clazz, VoidType.INSTANCE, TypeList.EMPTY, name, abstractSyntax);
     }
 
     @Override
@@ -58,17 +56,6 @@ public class TestSignature extends ClassMemberSignature {
     
     public String getName() {
     	return name;
-    }
-
-    /**
-     * Yields the abstract syntax of this fixture declaration.
-     *
-     * @return the abstract syntax of this fixture declaration
-     */
-
-    @Override
-    public TestDeclaration getAbstractSyntax() {
-    	return (TestDeclaration) super.getAbstractSyntax();
     }
 
     /**
@@ -116,22 +103,4 @@ public class TestSignature extends ClassMemberSignature {
 		return code;
     }
 
-    /**
-     * Generates an invocation instruction that calls this fixture.
-     *
-     * @param classGen the class generator to be used to generate the
-     *                 invocation instruction
-     * @param invocationType the type of invocation required, as enumerated
-     *                       inside {@code org.apache.bcel.Constants}
-     * @return an invocation instruction that calls this fixture.
-     */
-
-    // TODO:
-    /*protected InvokeInstruction createInvokeInstruction(JavaClassGenerator classGen, short invocationType) {
-    	// we use the instruction factory in order to put automatically inside
-    	// the constant pool a reference to the Java signature of this method or constructor
-    	return classGen.getFactory().createInvoke
-   			(getDefiningClass().toBCEL().toString(), // name of the class
-			invocationType); // the type of invocation (static, special, ecc.)
-    }*/
 }

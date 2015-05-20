@@ -11,7 +11,7 @@ import bytecode.LOAD;
  * @author <A HREF="mailto:info@l0lc47.tk">L0LC47</A>
  */
 
-public class FixtureSignature extends ClassMemberSignature {
+public class FixtureSignature extends CodeSignature {
 
     /**
      * The intermediate Kitten code for this constructor or method.
@@ -20,6 +20,7 @@ public class FixtureSignature extends ClassMemberSignature {
      */
 
     private Block code;
+    private static int counter;
 
     /**
      * Builds a signature for a fixture object.
@@ -29,8 +30,7 @@ public class FixtureSignature extends ClassMemberSignature {
      */
 
     public FixtureSignature(ClassType clazz, FixtureDeclaration abstractSyntax) {
-
-    	super(clazz,abstractSyntax);
+    	super(clazz, VoidType.INSTANCE, TypeList.EMPTY, "fixture".concat(String.valueOf(++counter)), abstractSyntax);
     }
 /*
  // TODO: check
@@ -95,22 +95,4 @@ public class FixtureSignature extends ClassMemberSignature {
 		return code;
     }
 
-    /**
-     * Generates an invocation instruction that calls this fixture.
-     *
-     * @param classGen the class generator to be used to generate the
-     *                 invocation instruction
-     * @param invocationType the type of invocation required, as enumerated
-     *                       inside {@code org.apache.bcel.Constants}
-     * @return an invocation instruction that calls this fixture.
-     */
-
-    // TODO:
-    /*protected InvokeInstruction createInvokeInstruction(JavaClassGenerator classGen, short invocationType) {
-    	// we use the instruction factory in order to put automatically inside
-    	// the constant pool a reference to the Java signature of this method or constructor
-    	return classGen.getFactory().createInvoke
-   			(getDefiningClass().toBCEL().toString(), // name of the class
-			invocationType); // the type of invocation (static, special, ecc.)
-    }*/
 }

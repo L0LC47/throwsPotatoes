@@ -4,8 +4,8 @@ import java.io.FileWriter;
 
 import semantical.TypeChecker;
 import types.ClassType;
+import types.MethodSignature;
 import types.TestSignature;
-import types.TypeList;
 import types.VoidType;
 
 /**
@@ -15,16 +15,13 @@ import types.VoidType;
  * @author <A HREF="mailto:info@l0lc47.tk">L0LC47</A>
  */
 
-public class TestDeclaration extends ClassMemberDeclaration {
+public class TestDeclaration extends CodeDeclaration {
 
     /**
      * The signature of this fixture or method. This is {@code null} if this
      * fixture or method has not been type-checked yet.
      */
 
-    private TestSignature sig;
-    
-	private Command body;
 	private String name;
 
 	/**
@@ -38,46 +35,27 @@ public class TestDeclaration extends ClassMemberDeclaration {
 	 */
 
 	public TestDeclaration(int pos, String name, Command body, ClassMemberDeclaration next) {
-		super(pos,next);
+		super(pos, null, body, next);
 		this.name = name;
-    	this.body = body;
 	}
 	
-	/**
-     * Specifies the code signature of this fixture.
-     *
-     * @param cSig the code signature of this fixture.
-     */
-
-    protected void setSignature(TestSignature cSig) {
-    	this.sig = cSig;
-    }
-
-    /**
-     * Yields the signature of this method or fixture declaration.
-     *
-     * @return the signature of this method or fixture declaration.
-     *         Yields {@code null} if type-checking has not been performed yet
-     */
-
-    @Override
-    public TestSignature getSignature() {
-    	return sig;
-    }
-    
-    /**
-    * Yields the abstract syntax of the body of the constructor or method.
-    *
-    * @return the abstract syntax of the body of the constructor or method
-    */
-
-    public Command getBody() {
-    	return body;
-    }
 
     public String getName() {
     	return name;
     }
+    
+	/**
+	 * Yields the signature of this test declaration.
+	 *
+	 * @return the signature of this test declaration. Yields {@code null}
+	 *         if type-checking has not been performed yet
+	 */
+
+	@Override
+	public TestSignature getSignature() {
+		return (TestSignature) super.getSignature();
+	}
+    
 	/**
 	 * Adds arcs between the dot node for this piece of abstract syntax
 	 * and those representing the formal parameters and body of the fixture.

@@ -79,7 +79,7 @@
 		<move file="sym.java" todir="src/${syntactical.package}"/>
 	</target>
 
-	<target name="compile-syntactical-analyzer" depends="generate-syntactical-analyzer">
+	<target name="compile-syntactical-analyzer" depends="compile-lexical-analyzer">
 		<javac includeantruntime="false" srcdir="${build.in.folder}" destdir="${build.out.folder}" encoding="utf8" debug="on" debuglevel="lines,vars,source">
 			<include name="${syntactical.package}/*.java" />
 			<classpath>

@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import semantical.TypeChecker;
 import types.ClassType;
 import types.FixtureSignature;
-import types.TypeList;
+import types.TestSignature;
 import types.VoidType;
 
 /**
@@ -15,16 +15,7 @@ import types.VoidType;
  * @author <A HREF="mailto:info@l0lc47.tk">L0LC47</A>
  */
 
-public class FixtureDeclaration extends ClassMemberDeclaration {
-
-    /**
-     * The signature of this fixture or method. This is {@code null} if this
-     * fixture or method has not been type-checked yet.
-     */
-
-    private FixtureSignature sig;
-    
-	private Command body;
+public class FixtureDeclaration extends CodeDeclaration {
 
 	/**
 	 * Constructs the abstract syntax of a fixture declaration.
@@ -37,42 +28,20 @@ public class FixtureDeclaration extends ClassMemberDeclaration {
 	 */
 
 	public FixtureDeclaration(int pos, Command body, ClassMemberDeclaration next) {
-		super(pos,next);
-    	this.body = body;
+		super(pos,null, body, next);
 	}
 	
 	/**
-     * Specifies the code signature of this fixture.
-     *
-     * @param cSig the code signature of this fixture.
-     */
+	 * Yields the signature of this fixture declaration.
+	 *
+	 * @return the signature of this fixture declaration. Yields {@code null}
+	 *         if type-checking has not been performed yet
+	 */
 
-    protected void setSignature(FixtureSignature cSig) {
-    	this.sig = cSig;
-    }
-
-    /**
-     * Yields the signature of this method or fixture declaration.
-     *
-     * @return the signature of this method or fixture declaration.
-     *         Yields {@code null} if type-checking has not been performed yet
-     */
-
-    @Override
-    public FixtureSignature getSignature() {
-    	return sig;
-    }
-    
-    /**
-    * Yields the abstract syntax of the body of the constructor or method.
-    *
-    * @return the abstract syntax of the body of the constructor or method
-    */
-
-    public Command getBody() {
-    	return body;
-    }
-
+	@Override
+	public FixtureSignature getSignature() {
+		return (FixtureSignature) super.getSignature();
+	}
 	/**
 	 * Adds arcs between the dot node for this piece of abstract syntax
 	 * and those representing the formal parameters and body of the fixture.
