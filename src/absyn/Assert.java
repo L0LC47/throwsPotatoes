@@ -96,17 +96,8 @@ public class Assert extends Command {
 	@Override
 	// TODO: ...
 	public Block translate(CodeSignature where, Block continuation) {
-		/*
-		// we get the type which must be returned by this the current method
-		Type returnType = getTypeChecker().getReturnType();
 
-		// we get a code which is made of a block containing the bytecode return
-		continuation = new Block(new RETURN(returnType));
-
-		// if there is an initialising expression, we translate it
-		if (condition != null)
-			continuation = condition.translateAs(where, returnType, continuation);
-	*/
 		return continuation;
 	}
+	
 }

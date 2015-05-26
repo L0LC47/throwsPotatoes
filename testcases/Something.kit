@@ -7,10 +7,19 @@ class Something {
         assert("critical error" = "SPAAAACEEEE!!")
     }
 
-    fixture
-        this.val := 7
+    constructor(){}
+    
+    method void sayHello()
+        "hello".output()
+    
+    fixture{
+        this.val := 7;
+        "hello".output()
+    }
 
-    method void main()
-        "the cake is a lie\n".output()
-
+    method void main(){
+        "the cake is a lie\n".output();
+        Something s := new Something();
+        s.sayHello()
+    }
 }

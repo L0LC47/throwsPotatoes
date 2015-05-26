@@ -32,13 +32,7 @@ public class FixtureSignature extends CodeSignature {
     public FixtureSignature(ClassType clazz, FixtureDeclaration abstractSyntax) {
     	super(clazz, VoidType.INSTANCE, TypeList.EMPTY, "fixture".concat(String.valueOf(++counter)), abstractSyntax);
     }
-/*
- // TODO: check
-    @Override
-    public String toString() {
-    	return getDefiningClass().toString();
-    }
-*/
+
     /**
      * Yields the abstract syntax of this fixture declaration.
      *
@@ -71,28 +65,17 @@ public class FixtureSignature extends CodeSignature {
     	this.code = addPrefixToCode(code);
     }
 
-    /**
-     * Adds a prefix to the Kitten bytecode generated for this fixture. 
-     * This allows for instance constructors to add a call to the
-     * constructor to the superclass.
-     *
-     * @param code the code already compiled for this fixture
-     * @return {@code code} with a prefix
-     */
 
-    // TODO:
-    protected Block addPrefixToCode(Block code){
-		// we prefix a piece of code that calls the constructor of
-		// the superclass (if any)
-		if (!getDefiningClass().getName().equals("Object")) {
-			ClassType superclass = getDefiningClass().getSuperclass();
+	/**
+	 * Adds a prefix to the Kitten bytecode generated for this fixture.
+	 *
+	 * @param code the code already compiled for this method
+	 * @return {@code code} itself
+	 */
 
-			code = new LOAD(0, getDefiningClass()).followedBy
-				(new CONSTRUCTORCALL(superclass.constructorLookup(TypeList.EMPTY))
-				.followedBy(code));
-		}
-
+	@Override
+	protected Block addPrefixToCode(Block code) {
 		return code;
-    }
+	}
 
 }

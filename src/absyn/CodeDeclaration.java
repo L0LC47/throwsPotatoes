@@ -5,7 +5,11 @@ import java.util.Set;
 
 import translation.Block;
 import types.ClassMemberSignature;
+import types.ClassType;
 import types.CodeSignature;
+import types.FieldSignature;
+import types.FixtureSignature;
+import types.TestSignature;
 import types.VoidType;
 import bytecode.Bytecode;
 import bytecode.BytecodeList;
@@ -146,17 +150,34 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
     	for (BytecodeList cursor = block.getBytecode(); cursor != null; cursor = cursor.getTail()) {
     		Bytecode h = cursor.getHead();
 
-    		if (h instanceof GETFIELD)
+    		if (h instanceof GETFIELD) {
     			done.add(((GETFIELD) h).getField());
-    		else if (h instanceof PUTFIELD)
+    			translateSomething(((GETFIELD) h).getField().getDefiningClass(), done);
+    			
+    		}
+    		else if (h instanceof PUTFIELD) {
     			done.add(((PUTFIELD) h).getField());
-    		else if (h instanceof CALL)
-    			for (CodeSignature callee: ((CALL) h).getDynamicTargets())
+    			translateSomething(((PUTFIELD) h).getField().getDefiningClass(), done);
+    		}
+    		else if (h instanceof CALL) {
+    			for (CodeSignature callee: ((CALL) h).getDynamicTargets()) {
     				callee.getAbstractSyntax().translate(done);
+    				translateSomething(callee.getDefiningClass(), done);
+    			}
+    		}
     	}
 
     	// we continue with the following blocks
     	for (Block follow: block.getFollows())
     		translateReferenced(follow, done, blocksDone);
     }
+    
+    void translateSomething(ClassType clazz, Set<ClassMemberSignature> done) {
+    	for(FixtureSignature cms : clazz.getFixtures())
+    		cms.getAbstractSyntax().translate(done);
+
+    	for(TestSignature cms : clazz.getTests())
+    		cms.getAbstractSyntax().translate(done);
+    }
+    
 }

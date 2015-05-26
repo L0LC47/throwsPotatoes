@@ -364,6 +364,27 @@ public final class ClassType extends ReferenceType {
 	}
 
 	/**
+	 * Yields the tests of this class.
+	 *
+	 * @return the methods
+	 */
+
+	public Set<TestSignature> getTests() {
+		return tests;
+	}
+
+	/**
+	 * Yields the fixtures of this class.
+	 *
+	 * @return the methods
+	 */
+
+	public Set<FixtureSignature> getFixtures() {
+		return fixtures;
+	}
+
+	
+	/**
 	 * Looks up from this class for the signature of the field
 	 * with the given name, if any.
 	 *
