@@ -7,7 +7,6 @@ import translation.Block;
 import types.ClassMemberSignature;
 import types.ClassType;
 import types.CodeSignature;
-import types.FieldSignature;
 import types.FixtureSignature;
 import types.TestSignature;
 import types.VoidType;
@@ -125,7 +124,7 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
     		// precaution is useless since we know that every execution path
     		// ends with a return command, as guaranteed by
     		// checkForDeadCode() (see typeCheck() in MethodDeclaration.java)
-    		sig.setCode(getBody().translate(sig, new Block(new RETURN(VoidType.INSTANCE))));
+    		sig.setCode(getBody().translate(new Block(new RETURN(VoidType.INSTANCE))));
 
     		// we translate all methods and constructors that are referenced
     		// from the code we have generated
@@ -172,12 +171,16 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
     		translateReferenced(follow, done, blocksDone);
     }
     
-    void translateSomething(ClassType clazz, Set<ClassMemberSignature> done) {
-    	for(FixtureSignature cms : clazz.getFixtures())
+    private void translateSomething(ClassType clazz, Set<ClassMemberSignature> done) {
+    	for(FixtureSignature cms : clazz.getFixtures()){
     		cms.getAbstractSyntax().translate(done);
+    		System.out.println(cms);
+    	}
 
-    	for(TestSignature cms : clazz.getTests())
+    	for(TestSignature cms : clazz.getTests()){
     		cms.getAbstractSyntax().translate(done);
+    		System.out.println(cms);
+    	}
+    	System.out.println("---");
     }
-    
 }

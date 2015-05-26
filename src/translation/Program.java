@@ -83,10 +83,10 @@ public class Program {
 	 * Cleans-up the code of this program. This amounts to removing useless
 	 * nop's or methods or constructors that are not called.
 	 */
-
+	// FIXME
 	public void cleanUp() {
-		sigs.clear();
-		start.getCode().cleanUp(this);
+	//	sigs.clear();
+	//	start.getCode().cleanUp(this);
 	}
 
 	/**

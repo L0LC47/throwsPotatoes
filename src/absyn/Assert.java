@@ -2,9 +2,13 @@ package absyn;
 
 import java.io.FileWriter;
 
+import bytecode.NEWSTRING;
+import bytecode.VIRTUALCALL;
 import semantical.TypeChecker;
 import translation.Block;
+import types.ClassType;
 import types.CodeSignature;
+import types.TypeList;
 
 /**
  * A node of abstract syntax representing a {@code return} command.
@@ -83,21 +87,37 @@ public class Assert extends Command {
 	}
 
 	/**
-	 * Translates this command into intermediate Kitten bytecode. Namely,
-	 * it returns a code which starts with the evaluation of {@link #condition},
-	 * if any, and continues with a {@code return} bytecode for the type returned
-	 * by the current method.
+	 * Translates this command into intermediate
+	 * Kitten bytecode. Namely, it returns a code which evaluates the
+	 * [@link #condition} of the conditional and then continues with
+	 * the code for the compilation of {@link #then} or {@link #_else}.
+	 * It then continues with {@code continuation}.
 	 *
-	 * @param where the method or constructor where this expression occurs
 	 * @param continuation the continuation to be executed after this command
-	 * @return the code executing this command and then the {@code continuation}
+	 * @return the code executing this command and then
+	 *         the {@code continuation}
 	 */
 
 	@Override
-	// TODO: ...
-	public Block translate(CodeSignature where, Block continuation) {
+	public Block translate(Block continuation) {
+		continuation.doNotMerge();
+		String out = makeFailureMessage();
+		
+		Block failed = new Block();
+		failed = new VIRTUALCALL(ClassType.mkFromFileName("String.kit"),
+			ClassType.mkFromFileName("String.kit").methodLookup("output", TypeList.EMPTY))
+			.followedBy(continuation);
+		failed = new NEWSTRING(out).followedBy(continuation);
 
-		return continuation;
+		return condition.translateAsTest(continuation, failed);
+	}
+	
+	// TODO get filename
+	private String makeFailureMessage() {
+		String filename = "???.kit";
+		String pos = getTypeChecker().calcPos(getPos());
+
+		return "Assert fallita @" + filename + ":" + pos;
 	}
 	
 }

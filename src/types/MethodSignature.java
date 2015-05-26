@@ -73,7 +73,7 @@ public class MethodSignature extends CodeSignature {
 				getReturnType().toBCEL(), // return type
 				getParameters().toBCEL(), // parameters types, if any
 				null, // parameters names: we do not care
-				getName().toString(), // method's name
+				getName(), // method's name
 				classGen.getClassName(), // defining class
 				classGen.generateJavaBytecode(getCode()), // bytecode of the method
 				classGen.getConstantPool()); // constant pool

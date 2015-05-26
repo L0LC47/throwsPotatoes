@@ -14,57 +14,16 @@ import bytecode.LOAD;
 public class FixtureSignature extends CodeSignature {
 
     /**
-     * The intermediate Kitten code for this constructor or method.
-     * This is {@code null} if this constructor or method has not been
-     * translated yet.
-     */
-
-    private Block code;
-    private static int counter;
-
-    /**
      * Builds a signature for a fixture object.
      *
      * @param clazz the class where this code is defined
+     * @param name the name of this code
      * @param abstractSyntax the abstract syntax of the declaration of this code
      */
 
-    public FixtureSignature(ClassType clazz, FixtureDeclaration abstractSyntax) {
-    	super(clazz, VoidType.INSTANCE, TypeList.EMPTY, "fixture".concat(String.valueOf(++counter)), abstractSyntax);
+    public FixtureSignature(ClassType clazz, String name, FixtureDeclaration abstractSyntax) {
+    	super(clazz, VoidType.INSTANCE, TypeList.EMPTY, name, abstractSyntax);
     }
-
-    /**
-     * Yields the abstract syntax of this fixture declaration.
-     *
-     * @return the abstract syntax of this fixture declaration
-     */
-
-    @Override
-    public FixtureDeclaration getAbstractSyntax() {
-    	return (FixtureDeclaration) super.getAbstractSyntax();
-    }
-
-    /**
-     * Yields the block where the Kitten bytecode of this fixture.
-     *
-     * @return the block where the Kitten bytecode of this fixture.
-     */
-
-    public Block getCode() {
-    	return code;
-    }
-
-    /**
-     * Sets the Kitten code of this fixture, adding
-     * automatically the prefix expected for it.
-     *
-     * @param code the Kitten code
-     */
-
-    public void setCode(Block code) {
-    	this.code = addPrefixToCode(code);
-    }
-
 
 	/**
 	 * Adds a prefix to the Kitten bytecode generated for this fixture.
@@ -77,5 +36,10 @@ public class FixtureSignature extends CodeSignature {
 	protected Block addPrefixToCode(Block code) {
 		return code;
 	}
+	
+    @Override
+    public String toString() {
+    	return getDefiningClass() + "." + getName();
+    }
 
 }

@@ -183,4 +183,8 @@ public class TypeChecker {
 	public boolean isAssertAllowed() {
 		return assertAllowed;
 	}
+	
+	public String calcPos(int pos) {
+		return errorMsg.calcPos(pos);
+	}
 }

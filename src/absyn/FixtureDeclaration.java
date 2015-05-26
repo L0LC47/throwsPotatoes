@@ -25,22 +25,14 @@ public class FixtureDeclaration extends CodeDeclaration {
 	 * @param next the abstract syntax of the declaration of the
 	 *             subsequent class member, if any
 	 */
-
+	private static int counter;
+	private String name;
+	
 	public FixtureDeclaration(int pos, Command body, ClassMemberDeclaration next) {
 		super(pos,null, body, next);
+		name = "fixture".concat(String.valueOf(++counter));
 	}
 	
-	/**
-	 * Yields the signature of this fixture declaration.
-	 *
-	 * @return the signature of this fixture declaration. Yields {@code null}
-	 *         if type-checking has not been performed yet
-	 */
-
-	@Override
-	public FixtureSignature getSignature() {
-		return (FixtureSignature) super.getSignature();
-	}
 	/**
 	 * Adds arcs between the dot node for this piece of abstract syntax
 	 * and those representing the formal parameters and body of the fixture.
@@ -61,7 +53,7 @@ public class FixtureDeclaration extends CodeDeclaration {
 
 	@Override 
 	protected void addTo(ClassType clazz) {
-		FixtureSignature cSig = new FixtureSignature (clazz, this);
+		FixtureSignature cSig = new FixtureSignature (clazz, name, this);
 		
 		clazz.addFixture(cSig);
 
