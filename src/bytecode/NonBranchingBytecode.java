@@ -1,6 +1,7 @@
 package bytecode;
 
 import javaBytecodeGenerator.JavaClassGenerator;
+import javaBytecodeGenerator.TestClassGenerator;
 
 import org.apache.bcel.generic.InstructionList;
 
@@ -31,4 +32,5 @@ public abstract class NonBranchingBytecode extends Bytecode {
 	 */
 
 	public abstract InstructionList generateJavaBytecode(JavaClassGenerator classGen);
+	
 }

@@ -4,11 +4,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
-import javaBytecodeGenerator.JavaClassGenerator;
 
+import javaBytecodeGenerator.NormalClassGenerator;
+import javaBytecodeGenerator.TestClassGenerator;
 import types.ClassMemberSignature;
-import types.CodeSignature;
 import types.ClassType;
+import types.CodeSignature;
+import types.ConstructorSignature;
+import types.TypeList;
 import bytecode.Bytecode;
 import bytecode.CALL;
 import bytecode.FieldAccessBytecode;
@@ -85,8 +88,8 @@ public class Program {
 	 */
 	// FIXME
 	public void cleanUp() {
-	//	sigs.clear();
-	//	start.getCode().cleanUp(this);
+		sigs.clear();
+		start.getCode().cleanUp(this);
 	}
 
 	/**
@@ -175,13 +178,35 @@ public class Program {
 		// we consider one class at the time and we generate its Java bytecode
 		for (ClassType clazz: ClassType.getAll())
 			try {
-				new JavaClassGenerator(clazz, sigs).getJavaClass().dump(clazz + ".class");
+				new NormalClassGenerator(clazz, sigs).getJavaClass().dump(clazz + ".class");
 			}
 			catch (IOException e) {
 				System.out.println("Could not dump the Java bytecode for class " + clazz);
 			}
 	}
-
+	
+	// TODO javadoc
+	/**
+	 * Generates the Java bytecode for all the class types and
+	 * dumps the relative {@code .class} files on the file system.
+	 */
+// TODO not tested
+	public void generateJavaBytecodeForTest() {
+		// we consider one class at the time and we generate its Java bytecode
+		for (ClassType clazz: ClassType.getAll()){
+			if(clazz.getTests().isEmpty())
+				continue;
+		
+			try {
+				sigs.addAll(clazz.getConstructors());
+				new TestClassGenerator(clazz, sigs).getJavaClass().dump(clazz + "Test.class");
+			}
+			catch (IOException e) {
+				System.out.println("Could not dump the Java bytecode for class " + clazz);
+			}
+		}
+	}
+	
 	/**
 	 * Takes note that this program contains the given bytecode. This amounts
 	 * to adding some signature to the set of signatures for the program.
@@ -189,11 +214,23 @@ public class Program {
 	 * @param bytecode the bytecode
 	 */
 
+	// FIXME IT WORKS BUT I DON'T KNOW WHY!
 	protected void storeBytecode(Bytecode bytecode) {
-		if (bytecode instanceof FieldAccessBytecode)
+		if (bytecode instanceof FieldAccessBytecode) {
 			sigs.add(((FieldAccessBytecode) bytecode).getField());
-		else if (bytecode instanceof CALL)
+			//sigs.add(((FieldAccessBytecode) bytecode).getField().getDefiningClass().constructorLookup(TypeList.EMPTY));
+			sigs.addAll(((FieldAccessBytecode) bytecode).getField().getDefiningClass().getFixtures());
+			sigs.addAll(((FieldAccessBytecode) bytecode).getField().getDefiningClass().getConstructors());
+			sigs.addAll(((FieldAccessBytecode) bytecode).getField().getDefiningClass().getTests());
+		}
+		else if (bytecode instanceof CALL){
 			// a call instruction might call many methods or constructors at runtime
 			sigs.addAll(((CALL) bytecode).getDynamicTargets());
+			for(ClassMemberSignature cms : ((CALL) bytecode).getDynamicTargets()){
+				sigs.addAll(cms.getDefiningClass().getFixtures());
+				sigs.addAll(cms.getDefiningClass().getTests());
+				sigs.addAll(cms.getDefiningClass().getConstructors());
+			}
+		}
 	}
 }

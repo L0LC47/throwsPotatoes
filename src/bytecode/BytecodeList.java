@@ -1,6 +1,7 @@
 package bytecode;
 
 import javaBytecodeGenerator.JavaClassGenerator;
+import javaBytecodeGenerator.TestClassGenerator;
 
 import org.apache.bcel.generic.InstructionList;
 
@@ -134,4 +135,5 @@ public class BytecodeList {
 
     	return result;
     }
+    
 }

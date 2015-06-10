@@ -1,0 +1,610 @@
+Classfile /C:/Users/Matteo/Documents/GitHub/throwsPotatoes/testcases/SomethingTest.class
+  Last modified 29-mag-2015; size 2734 bytes
+  MD5 checksum 0c9afb912d5fa9783d9686c7eaf2369d
+  Compiled from "Something.kit"
+public class SomethingTest extends Object
+  minor version: 3
+  major version: 45
+  flags: ACC_PUBLIC
+Constant pool:
+    #1 = Utf8               SourceFile
+    #2 = Utf8               Something.kit
+    #3 = Utf8               SomethingTest
+    #4 = Class              #3            // SomethingTest
+    #5 = Utf8               Object
+    #6 = Class              #5            // Object
+    #7 = Utf8               <init>
+    #8 = Utf8               (Ljava/lang/String;)V
+    #9 = NameAndType        #7:#8         // "<init>":(Ljava/lang/String;)V
+   #10 = Utf8               runTime/String
+   #11 = Class              #10           // runTime/String
+   #12 = Methodref          #11.#9        // runTime/String."<init>":(Ljava/lang/String;)V
+   #13 = Utf8               SPAAAACEEEE!!
+   #14 = String             #13           // SPAAAACEEEE!!
+   #15 = Utf8               Something
+   #16 = Class              #15           // Something
+   #17 = Utf8               msg
+   #18 = Utf8               LrunTime/String;
+   #19 = NameAndType        #17:#18       // msg:LrunTime/String;
+   #20 = Fieldref           #16.#19       // Something.msg:LrunTime/String;
+   #21 = Utf8               fixture11
+   #22 = Utf8               (LSomething;)V
+   #23 = Utf8               arg0
+   #24 = Utf8               LSomething;
+   #25 = Utf8               LocalVariableTable
+   #26 = Utf8               Code
+   #27 = Utf8               fixture4
+   #28 = Utf8               fixture10
+   #29 = Utf8               fixture3
+   #30 = Utf8               fixture13
+   #31 = Utf8               fixture2
+   #32 = Utf8               fixture12
+   #33 = Utf8               fixture1
+   #34 = Utf8               fixture15
+   #35 = Utf8               fixture8
+   #36 = Utf8               fixture14
+   #37 = Utf8               fixture7
+   #38 = Utf8               fixture17
+   #39 = Utf8               fixture6
+   #40 = Utf8               fixture16
+   #41 = Utf8               fixture5
+   #42 = Utf8               fixture19
+   #43 = Utf8               fixture18
+   #44 = Utf8               fixture9
+   #45 = Utf8               critical error
+   #46 = String             #45           // critical error
+   #47 = Utf8               equals
+   #48 = Utf8               (LrunTime/String;)Z
+   #49 = NameAndType        #47:#48       // equals:(LrunTime/String;)Z
+   #50 = Methodref          #11.#49       // runTime/String.equals:(LrunTime/String;)Z
+   #51 = Utf8               Assert fallita @Something.kit:7.9\n
+   #52 = String             #51           // Assert fallita @Something.kit:7.9\n
+   #53 = Utf8               output
+   #54 = Utf8               ()V
+   #55 = NameAndType        #53:#54       // output:()V
+   #56 = Methodref          #11.#55       // runTime/String.output:()V
+   #57 = Utf8               pippo
+   #58 = Utf8               Assert fallita @Something.kit:10.9\n
+   #59 = String             #58           // Assert fallita @Something.kit:10.9\n
+   #60 = Utf8               pluto
+   #61 = Utf8               java/lang/System
+   #62 = Class              #61           // java/lang/System
+   #63 = Utf8               out
+   #64 = Utf8               Ljava/io/PrintStream;
+   #65 = NameAndType        #63:#64       // out:Ljava/io/PrintStream;
+   #66 = Fieldref           #62.#65       // java/lang/System.out:Ljava/io/PrintStream;
+   #67 = Utf8               println
+   #68 = NameAndType        #67:#8        // println:(Ljava/lang/String;)V
+   #69 = Utf8               java/io/PrintStream
+   #70 = Class              #69           // java/io/PrintStream
+   #71 = Methodref          #70.#68       // java/io/PrintStream.println:(Ljava/lang/String;)V
+   #72 = Utf8               Test execution for class Something
+   #73 = String             #72           // Test execution for class Something
+   #74 = Utf8               Test: pippo
+   #75 = String             #74           // Test: pippo
+   #76 = Fieldref           #62.#65       // java/lang/System.out:Ljava/io/PrintStream;
+   #77 = Utf8               currentTimeMillis
+   #78 = Utf8               ()J
+   #79 = NameAndType        #77:#78       // currentTimeMillis:()J
+   #80 = Methodref          #62.#79       // java/lang/System.currentTimeMillis:()J
+   #81 = NameAndType        #7:#54        // "<init>":()V
+   #82 = Methodref          #16.#81       // Something."<init>":()V
+   #83 = NameAndType        #21:#22       // fixture11:(LSomething;)V
+   #84 = Methodref          #4.#83        // SomethingTest.fixture11:(LSomething;)V
+   #85 = NameAndType        #27:#22       // fixture4:(LSomething;)V
+   #86 = Methodref          #4.#85        // SomethingTest.fixture4:(LSomething;)V
+   #87 = NameAndType        #28:#22       // fixture10:(LSomething;)V
+   #88 = Methodref          #4.#87        // SomethingTest.fixture10:(LSomething;)V
+   #89 = NameAndType        #29:#22       // fixture3:(LSomething;)V
+   #90 = Methodref          #4.#89        // SomethingTest.fixture3:(LSomething;)V
+   #91 = NameAndType        #30:#22       // fixture13:(LSomething;)V
+   #92 = Methodref          #4.#91        // SomethingTest.fixture13:(LSomething;)V
+   #93 = NameAndType        #31:#22       // fixture2:(LSomething;)V
+   #94 = Methodref          #4.#93        // SomethingTest.fixture2:(LSomething;)V
+   #95 = NameAndType        #32:#22       // fixture12:(LSomething;)V
+   #96 = Methodref          #4.#95        // SomethingTest.fixture12:(LSomething;)V
+   #97 = NameAndType        #33:#22       // fixture1:(LSomething;)V
+   #98 = Methodref          #4.#97        // SomethingTest.fixture1:(LSomething;)V
+   #99 = NameAndType        #34:#22       // fixture15:(LSomething;)V
+  #100 = Methodref          #4.#99        // SomethingTest.fixture15:(LSomething;)V
+  #101 = NameAndType        #35:#22       // fixture8:(LSomething;)V
+  #102 = Methodref          #4.#101       // SomethingTest.fixture8:(LSomething;)V
+  #103 = NameAndType        #36:#22       // fixture14:(LSomething;)V
+  #104 = Methodref          #4.#103       // SomethingTest.fixture14:(LSomething;)V
+  #105 = NameAndType        #37:#22       // fixture7:(LSomething;)V
+  #106 = Methodref          #4.#105       // SomethingTest.fixture7:(LSomething;)V
+  #107 = NameAndType        #38:#22       // fixture17:(LSomething;)V
+  #108 = Methodref          #4.#107       // SomethingTest.fixture17:(LSomething;)V
+  #109 = NameAndType        #39:#22       // fixture6:(LSomething;)V
+  #110 = Methodref          #4.#109       // SomethingTest.fixture6:(LSomething;)V
+  #111 = NameAndType        #40:#22       // fixture16:(LSomething;)V
+  #112 = Methodref          #4.#111       // SomethingTest.fixture16:(LSomething;)V
+  #113 = NameAndType        #41:#22       // fixture5:(LSomething;)V
+  #114 = Methodref          #4.#113       // SomethingTest.fixture5:(LSomething;)V
+  #115 = NameAndType        #42:#22       // fixture19:(LSomething;)V
+  #116 = Methodref          #4.#115       // SomethingTest.fixture19:(LSomething;)V
+  #117 = NameAndType        #43:#22       // fixture18:(LSomething;)V
+  #118 = Methodref          #4.#117       // SomethingTest.fixture18:(LSomething;)V
+  #119 = NameAndType        #44:#22       // fixture9:(LSomething;)V
+  #120 = Methodref          #4.#119       // SomethingTest.fixture9:(LSomething;)V
+  #121 = NameAndType        #57:#22       // pippo:(LSomething;)V
+  #122 = Methodref          #4.#121       // SomethingTest.pippo:(LSomething;)V
+  #123 = Utf8               (J)V
+  #124 = NameAndType        #67:#123      // println:(J)V
+  #125 = Methodref          #70.#124      // java/io/PrintStream.println:(J)V
+  #126 = Utf8               Test: pluto
+  #127 = String             #126          // Test: pluto
+  #128 = NameAndType        #60:#22       // pluto:(LSomething;)V
+  #129 = Methodref          #4.#128       // SomethingTest.pluto:(LSomething;)V
+  #130 = Utf8               main
+  #131 = Utf8               ([Ljava/lang/String;)V
+  #132 = Utf8               [Ljava/lang/String;
+{
+  private static void fixture11(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture4(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture10(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture3(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture13(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture2(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture12(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture1(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture15(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture8(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture14(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture7(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture17(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture6(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture16(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture5(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture19(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture18(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void fixture9(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: new           #11                 // class runTime/String
+         4: dup
+         5: ldc           #14                 // String SPAAAACEEEE!!
+         7: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        10: putfield      #20                 // Field Something.msg:LrunTime/String;
+        13: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      14     0  arg0   LSomething;
+
+  private static void pippo(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #20                 // Field Something.msg:LrunTime/String;
+         4: new           #11                 // class runTime/String
+         7: dup
+         8: ldc           #46                 // String critical error
+        10: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        13: invokevirtual #50                 // Method runTime/String.equals:(LrunTime/String;)Z
+        16: ifeq          20
+        19: return
+        20: new           #11                 // class runTime/String
+        23: dup
+        24: ldc           #52                 // String Assert fallita @Something.kit:7.9\n
+        26: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        29: invokevirtual #56                 // Method runTime/String.output:()V
+        32: goto          19
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      35     0  arg0   LSomething;
+
+  private static void pluto(Something);
+    descriptor: (LSomething;)V
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #20                 // Field Something.msg:LrunTime/String;
+         4: new           #11                 // class runTime/String
+         7: dup
+         8: ldc           #14                 // String SPAAAACEEEE!!
+        10: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        13: invokevirtual #50                 // Method runTime/String.equals:(LrunTime/String;)Z
+        16: ifeq          20
+        19: return
+        20: new           #11                 // class runTime/String
+        23: dup
+        24: ldc           #59                 // String Assert fallita @Something.kit:10.9\n
+        26: invokespecial #12                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        29: invokevirtual #56                 // Method runTime/String.output:()V
+        32: goto          19
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      35     0  arg0   LSomething;
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=5, locals=1, args_size=1
+         0: getstatic     #66                 // Field java/lang/System.out:Ljava/io/PrintStream;
+         3: ldc           #73                 // String Test execution for class Something
+         5: invokevirtual #71                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+         8: getstatic     #66                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        11: ldc           #75                 // String Test: pippo
+        13: invokevirtual #71                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+        16: getstatic     #76                 // Field java/lang/System.out:Ljava/io/PrintStream;
+        19: invokestatic  #80                 // Method java/lang/System.currentTimeMillis:()J
+        22: lneg
+        23: new           #16                 // class Something
+        26: dup
+        27: invokespecial #82                 // Method Something."<init>":()V
+        30: dup
+        31: invokestatic  #84                 // Method fixture11:(LSomething;)V
+        34: dup
+        35: invokestatic  #86                 // Method fixture4:(LSomething;)V
+        38: dup
+        39: invokestatic  #88                 // Method fixture10:(LSomething;)V
+        42: dup
+        43: invokestatic  #90                 // Method fixture3:(LSomething;)V
+        46: dup
+        47: invokestatic  #92                 // Method fixture13:(LSomething;)V
+        50: dup
+        51: invokestatic  #94                 // Method fixture2:(LSomething;)V
+        54: dup
+        55: invokestatic  #96                 // Method fixture12:(LSomething;)V
+        58: dup
+        59: invokestatic  #98                 // Method fixture1:(LSomething;)V
+        62: dup
+        63: invokestatic  #100                // Method fixture15:(LSomething;)V
+        66: dup
+        67: invokestatic  #102                // Method fixture8:(LSomething;)V
+        70: dup
+        71: invokestatic  #104                // Method fixture14:(LSomething;)V
+        74: dup
+        75: invokestatic  #106                // Method fixture7:(LSomething;)V
+        78: dup
+        79: invokestatic  #108                // Method fixture17:(LSomething;)V
+        82: dup
+        83: invokestatic  #110                // Method fixture6:(LSomething;)V
+        86: dup
+        87: invokestatic  #112                // Method fixture16:(LSomething;)V
+        90: dup
+        91: invokestatic  #114                // Method fixture5:(LSomething;)V
+        94: dup
+        95: invokestatic  #116                // Method fixture19:(LSomething;)V
+        98: dup
+        99: invokestatic  #118                // Method fixture18:(LSomething;)V
+       102: dup
+       103: invokestatic  #120                // Method fixture9:(LSomething;)V
+       106: invokestatic  #122                // Method pippo:(LSomething;)V
+       109: invokestatic  #80                 // Method java/lang/System.currentTimeMillis:()J
+       112: ladd
+       113: invokevirtual #125                // Method java/io/PrintStream.println:(J)V
+       116: getstatic     #66                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       119: ldc           #127                // String Test: pluto
+       121: invokevirtual #71                 // Method java/io/PrintStream.println:(Ljava/lang/String;)V
+       124: getstatic     #76                 // Field java/lang/System.out:Ljava/io/PrintStream;
+       127: invokestatic  #80                 // Method java/lang/System.currentTimeMillis:()J
+       130: lneg
+       131: new           #16                 // class Something
+       134: dup
+       135: invokespecial #82                 // Method Something."<init>":()V
+       138: dup
+       139: invokestatic  #84                 // Method fixture11:(LSomething;)V
+       142: dup
+       143: invokestatic  #86                 // Method fixture4:(LSomething;)V
+       146: dup
+       147: invokestatic  #88                 // Method fixture10:(LSomething;)V
+       150: dup
+       151: invokestatic  #90                 // Method fixture3:(LSomething;)V
+       154: dup
+       155: invokestatic  #92                 // Method fixture13:(LSomething;)V
+       158: dup
+       159: invokestatic  #94                 // Method fixture2:(LSomething;)V
+       162: dup
+       163: invokestatic  #96                 // Method fixture12:(LSomething;)V
+       166: dup
+       167: invokestatic  #98                 // Method fixture1:(LSomething;)V
+       170: dup
+       171: invokestatic  #100                // Method fixture15:(LSomething;)V
+       174: dup
+       175: invokestatic  #102                // Method fixture8:(LSomething;)V
+       178: dup
+       179: invokestatic  #104                // Method fixture14:(LSomething;)V
+       182: dup
+       183: invokestatic  #106                // Method fixture7:(LSomething;)V
+       186: dup
+       187: invokestatic  #108                // Method fixture17:(LSomething;)V
+       190: dup
+       191: invokestatic  #110                // Method fixture6:(LSomething;)V
+       194: dup
+       195: invokestatic  #112                // Method fixture16:(LSomething;)V
+       198: dup
+       199: invokestatic  #114                // Method fixture5:(LSomething;)V
+       202: dup
+       203: invokestatic  #116                // Method fixture19:(LSomething;)V
+       206: dup
+       207: invokestatic  #118                // Method fixture18:(LSomething;)V
+       210: dup
+       211: invokestatic  #120                // Method fixture9:(LSomething;)V
+       214: invokestatic  #129                // Method pluto:(LSomething;)V
+       217: invokestatic  #80                 // Method java/lang/System.currentTimeMillis:()J
+       220: ladd
+       221: invokevirtual #125                // Method java/io/PrintStream.println:(J)V
+       224: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0     225     0  arg0   [Ljava/lang/String;
+}
+SourceFile: "Something.kit"

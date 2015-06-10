@@ -7,8 +7,11 @@ import translation.Block;
 import types.ClassMemberSignature;
 import types.ClassType;
 import types.CodeSignature;
+import types.ConstructorSignature;
+import types.FieldSignature;
 import types.FixtureSignature;
 import types.TestSignature;
+import types.TypeList;
 import types.VoidType;
 import bytecode.Bytecode;
 import bytecode.BytecodeList;
@@ -170,17 +173,22 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
     	for (Block follow: block.getFollows())
     		translateReferenced(follow, done, blocksDone);
     }
-    
+    // TODO not tested
     private void translateSomething(ClassType clazz, Set<ClassMemberSignature> done) {
+
+ //   	clazz.constructorLookup(TypeList.EMPTY).getAbstractSyntax().translate(done);
+
+    	for(ConstructorSignature cms : clazz.getConstructors()){
+    		cms.getAbstractSyntax().translate(done);
+    	}
+    	   	
     	for(FixtureSignature cms : clazz.getFixtures()){
     		cms.getAbstractSyntax().translate(done);
-    		System.out.println(cms);
     	}
 
     	for(TestSignature cms : clazz.getTests()){
     		cms.getAbstractSyntax().translate(done);
-    		System.out.println(cms);
     	}
-    	System.out.println("---");
+
     }
 }

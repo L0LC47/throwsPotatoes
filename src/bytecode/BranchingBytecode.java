@@ -1,6 +1,7 @@
 package bytecode;
 
 import javaBytecodeGenerator.JavaClassGenerator;
+import javaBytecodeGenerator.TestClassGenerator;
 
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
@@ -63,6 +64,6 @@ public abstract class BranchingBytecode extends Bytecode implements NonCallingBy
 	 * @param yes the target where one must go if the outcome of the test
 	 *            expressed by this branching bytecode is true
 	 */
-
+	
 	protected abstract void generateJavaBytecodeAux(InstructionList il, JavaClassGenerator classGen, InstructionHandle yes);
 }

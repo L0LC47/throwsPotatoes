@@ -1,0 +1,123 @@
+Classfile /C:/Users/Matteo/Documents/GitHub/throwsPotatoes/testcases/Something.class
+  Last modified 28-mag-2015; size 688 bytes
+  MD5 checksum 9ee8973fbc0276a933161463528ffd71
+  Compiled from "Something.kit"
+public class Something extends Object
+  minor version: 3
+  major version: 45
+  flags: ACC_PUBLIC
+Constant pool:
+   #1 = Utf8               SourceFile
+   #2 = Utf8               Something.kit
+   #3 = Utf8               Something
+   #4 = Class              #3             // Something
+   #5 = Utf8               Object
+   #6 = Class              #5             // Object
+   #7 = Utf8               msg
+   #8 = Utf8               LrunTime/String;
+   #9 = Utf8               <init>
+  #10 = Utf8               ()V
+  #11 = NameAndType        #9:#10         // "<init>":()V
+  #12 = Methodref          #6.#11         // Object."<init>":()V
+  #13 = Utf8               this
+  #14 = Utf8               LSomething;
+  #15 = Utf8               LocalVariableTable
+  #16 = Utf8               Code
+  #17 = Utf8               (Ljava/lang/String;)V
+  #18 = NameAndType        #9:#17         // "<init>":(Ljava/lang/String;)V
+  #19 = Utf8               runTime/String
+  #20 = Class              #19            // runTime/String
+  #21 = Methodref          #20.#18        // runTime/String."<init>":(Ljava/lang/String;)V
+  #22 = Utf8               the cake is a lie\n
+  #23 = String             #22            // the cake is a lie\n
+  #24 = Utf8               output
+  #25 = NameAndType        #24:#10        // output:()V
+  #26 = Methodref          #20.#25        // runTime/String.output:()V
+  #27 = Methodref          #4.#11         // Something."<init>":()V
+  #28 = Utf8               hello
+  #29 = String             #28            // hello
+  #30 = Utf8               setMsg
+  #31 = Utf8               (LrunTime/String;)V
+  #32 = NameAndType        #30:#31        // setMsg:(LrunTime/String;)V
+  #33 = Methodref          #4.#32         // Something.setMsg:(LrunTime/String;)V
+  #34 = Utf8               saySomething
+  #35 = NameAndType        #34:#10        // saySomething:()V
+  #36 = Methodref          #4.#35         // Something.saySomething:()V
+  #37 = Utf8               main
+  #38 = Utf8               ([Ljava/lang/String;)V
+  #39 = Utf8               arg0
+  #40 = Utf8               [Ljava/lang/String;
+  #41 = NameAndType        #7:#8          // msg:LrunTime/String;
+  #42 = Fieldref           #4.#41         // Something.msg:LrunTime/String;
+{
+  public runTime.String msg;
+    descriptor: LrunTime/String;
+    flags: ACC_PUBLIC
+
+  public Something();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #12                 // Method Object."<init>":()V
+         4: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       5     0  this   LSomething;
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=4, locals=1, args_size=1
+         0: new           #20                 // class runTime/String
+         3: dup
+         4: ldc           #23                 // String the cake is a lie\n
+         6: invokespecial #21                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+         9: invokevirtual #26                 // Method runTime/String.output:()V
+        12: new           #4                  // class Something
+        15: dup
+        16: invokespecial #27                 // Method "<init>":()V
+        19: astore_0
+        20: aload_0
+        21: new           #20                 // class runTime/String
+        24: dup
+        25: ldc           #29                 // String hello
+        27: invokespecial #21                 // Method runTime/String."<init>":(Ljava/lang/String;)V
+        30: invokevirtual #33                 // Method setMsg:(LrunTime/String;)V
+        33: aload_0
+        34: invokevirtual #36                 // Method saySomething:()V
+        37: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0      38     0  arg0   [Ljava/lang/String;
+
+  public void setMsg(runTime.String);
+    descriptor: (LrunTime/String;)V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: aload_1
+         2: putfield      #42                 // Field msg:LrunTime/String;
+         5: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       6     0  this   LSomething;
+            0       6     1  arg0   LrunTime/String;
+
+  public void saySomething();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: getfield      #42                 // Field msg:LrunTime/String;
+         4: invokevirtual #26                 // Method runTime/String.output:()V
+         7: return
+      LocalVariableTable:
+        Start  Length  Slot  Name   Signature
+            0       8     0  this   LSomething;
+}
+SourceFile: "Something.kit"

@@ -5,7 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import types.ClassMemberSignature;
 import types.CodeSignature;
+import types.FixtureSignature;
+import types.TestSignature;
 import bytecode.BranchingBytecode;
 import bytecode.Bytecode;
 import bytecode.BytecodeList;
@@ -223,11 +226,11 @@ public class Block {
 	 *
 	 * @param program the program which is being cleaned-up
 	 */
-
+	//FIXME
 	void cleanUp(Program program) {
 		// the start method of the program is definitely called
 		program.getSigs().add(program.getStart());
-
+		
 		cleanUp(new HashSet<Block>(), program);
 	}
 

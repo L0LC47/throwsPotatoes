@@ -1,12 +1,27 @@
 package absyn;
 
 import java.io.FileWriter;
+import java.util.HashSet;
+import java.util.Set;
 
 import semantical.TypeChecker;
+import translation.Block;
+import types.ClassMemberSignature;
 import types.ClassType;
-import types.MethodSignature;
+import types.CodeSignature;
+import types.IntType;
 import types.TestSignature;
+import types.TypeList;
 import types.VoidType;
+import bytecode.Bytecode;
+import bytecode.BytecodeList;
+import bytecode.CALL;
+import bytecode.CONST;
+import bytecode.GETFIELD;
+import bytecode.NEWSTRING;
+import bytecode.PUTFIELD;
+import bytecode.RETURN;
+import bytecode.VIRTUALCALL;
 
 /**
  * A node of abstract syntax representing the declaration of a constructor
@@ -111,4 +126,75 @@ public class TestDeclaration extends CodeDeclaration {
 		// a return statement is always present at the end of every
 		// syntactical execution path in the body of a test
 	}
+	
+    /**
+     * Translates this constructor or method into intermediate Kitten code.
+     * This amounts to translating its body with a continuation containing
+     * a {@code return} bytecode. This way, if a method does not have an
+     * explicit {@code return} statement, it is automatically put at its end.
+     *
+     * @param done the set of code signatures that have been already translated
+     */
+
+    public void translate(Set<ClassMemberSignature> done) {
+    	if (done.add(getSignature())) {
+    		// we translate the body of the constructor or
+    		// method with a block containing RETURN as continuation. This way,
+    		// all methods returning void and
+    		// with some missing return command are correctly
+    		// terminated anyway. If the method is not void, this
+    		// precaution is useless since we know that every execution path
+    		// ends with a return command, as guaranteed by
+    		// checkForDeadCode() (see typeCheck() in MethodDeclaration.java)
+    		
+    		
+
+    		Block post = new Block(new RETURN(IntType.INSTANCE));
+    		post = new CONST(0).followedBy(post);
+    		post = new VIRTUALCALL(ClassType.mkFromFileName("String.kit"),
+    				ClassType.mkFromFileName("String.kit").methodLookup("output", TypeList.EMPTY))
+    					.followedBy(post);
+    		post = new NEWSTRING("passed").followedBy(post);	
+
+    		getSignature().setCode(getBody().translate(post));
+
+    		translateReferenced(getSignature().getCode(), done, new HashSet<Block>()); 
+    		
+    		
+    	}
+    }
+
+    /**
+     * Auxiliary method that translates into Kitten bytecode all class members that are
+     * referenced from the given block and the blocks reachable from it.
+     *
+     * @param block the block
+     * @param done the class member signatures already translated
+     * @param blocksDone the blocks that have been already processed
+     */
+
+    private void translateReferenced(Block block, Set<ClassMemberSignature> done, Set<Block> blocksDone) {
+    	// if we already processed the block, we return immediately
+    	if (!blocksDone.add(block))
+    		return;
+
+    	for (BytecodeList cursor = block.getBytecode(); cursor != null; cursor = cursor.getTail()) {
+    		Bytecode h = cursor.getHead();
+
+    		if (h instanceof GETFIELD) 
+    			done.add(((GETFIELD) h).getField());
+
+    		else if (h instanceof PUTFIELD) 
+    			done.add(((PUTFIELD) h).getField());
+
+    		else if (h instanceof CALL)
+    			for (CodeSignature callee: ((CALL) h).getDynamicTargets())
+    				callee.getAbstractSyntax().translate(done);
+    	}
+
+    	// we continue with the following blocks
+    	for (Block follow: block.getFollows())
+    		translateReferenced(follow, done, blocksDone);
+    }
+    
 }

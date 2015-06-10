@@ -187,4 +187,14 @@ public class TypeChecker {
 	public String calcPos(int pos) {
 		return errorMsg.calcPos(pos);
 	}
+	
+	/**
+	 * Yields the name of the source file.
+	 *
+	 * @return the name of the source file
+	 */
+
+	public String getFileName() {
+		return errorMsg.getFileName();
+	}
 }

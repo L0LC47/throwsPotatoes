@@ -2,13 +2,18 @@ package absyn;
 
 import java.io.FileWriter;
 
+import bytecode.CONST;
 import bytecode.NEWSTRING;
+import bytecode.RETURN;
 import bytecode.VIRTUALCALL;
 import semantical.TypeChecker;
 import translation.Block;
+import types.BooleanType;
 import types.ClassType;
 import types.CodeSignature;
+import types.IntType;
 import types.TypeList;
+import types.VoidType;
 
 /**
  * A node of abstract syntax representing a {@code return} command.
@@ -100,24 +105,23 @@ public class Assert extends Command {
 
 	@Override
 	public Block translate(Block continuation) {
-		continuation.doNotMerge();
 		String out = makeFailureMessage();
-		
-		Block failed = new Block();
+		Block failed = new Block(new RETURN(IntType.INSTANCE));
+		failed = new CONST(-1).followedBy(failed);
 		failed = new VIRTUALCALL(ClassType.mkFromFileName("String.kit"),
-			ClassType.mkFromFileName("String.kit").methodLookup("output", TypeList.EMPTY))
-			.followedBy(continuation);
-		failed = new NEWSTRING(out).followedBy(continuation);
-
+				ClassType.mkFromFileName("String.kit").methodLookup("output", TypeList.EMPTY)).followedBy(failed);
+		failed = new NEWSTRING(out).followedBy(failed);
+		
+		
 		return condition.translateAsTest(continuation, failed);
 	}
 	
-	// TODO get filename
-	private String makeFailureMessage() {
-		String filename = "???.kit";
-		String pos = getTypeChecker().calcPos(getPos());
 
-		return "Assert fallita @" + filename + ":" + pos;
+	private String makeFailureMessage() {
+		//String filename = getTypeChecker().getFileName();
+		String pos = getTypeChecker().calcPos(getPos());
+		return "failed at " + pos; 
+		//return "\t\tAssert fallita @" + filename + ":" + pos + "\n";
 	}
 	
 }
