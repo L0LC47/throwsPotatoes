@@ -3,6 +3,7 @@ package translation;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 import javaBytecodeGenerator.NormalClassGenerator;
@@ -11,6 +12,10 @@ import types.ClassMemberSignature;
 import types.ClassType;
 import types.CodeSignature;
 import types.ConstructorSignature;
+import types.FieldSignature;
+import types.FixtureSignature;
+import types.MethodSignature;
+import types.TestSignature;
 import types.TypeList;
 import bytecode.Bytecode;
 import bytecode.CALL;
@@ -86,10 +91,27 @@ public class Program {
 	 * Cleans-up the code of this program. This amounts to removing useless
 	 * nop's or methods or constructors that are not called.
 	 */
-	// FIXME
+	// XXX BANANA BANANA BANANA TERRACOTTA BANANA TERRACOTTA TERRACOTTA PIE!!!!!!!!!!!!!!!!!!!!!
 	public void cleanUp() {
-		sigs.clear();
+		//sigs.clear();
+		for(ClassMemberSignature sig : sigs){
+			if(sig instanceof CodeSignature)
+				((CodeSignature) sig).getCode().cleanUp(this);
+		}
 		start.getCode().cleanUp(this);
+		/*
+		ConstructorSignature bananaTerracottaPie;
+
+		bananaTerracottaPie = start.getDefiningClass().constructorLookup(TypeList.EMPTY);
+		if(bananaTerracottaPie != null && bananaTerracottaPie.getCode() != null)
+			bananaTerracottaPie.getCode().cleanUp2(this, bananaTerracottaPie);
+		
+    	for(TestSignature cms : start.getDefiningClass().getTests())
+    		cms.getCode().cleanUp2(this, cms);
+    		
+    	for(FixtureSignature cms : start.getDefiningClass().getFixtures())
+			cms.getCode().cleanUp2(this, cms);
+			*/
 	}
 
 	/**
@@ -179,6 +201,7 @@ public class Program {
 		for (ClassType clazz: ClassType.getAll())
 			try {
 				new NormalClassGenerator(clazz, sigs).getJavaClass().dump(clazz + ".class");
+				System.out.println("*****************" + clazz + "*****************");
 			}
 			catch (IOException e) {
 				System.out.println("Could not dump the Java bytecode for class " + clazz);
@@ -190,16 +213,17 @@ public class Program {
 	 * Generates the Java bytecode for all the class types and
 	 * dumps the relative {@code .class} files on the file system.
 	 */
-// TODO not tested
+
 	public void generateJavaBytecodeForTest() {
 		// we consider one class at the time and we generate its Java bytecode
 		for (ClassType clazz: ClassType.getAll()){
-			if(clazz.getTests().isEmpty())
+			if(clazz.getTests().isEmpty()){
+				System.out.println("------------------------" + clazz + "------------------------");
 				continue;
-		
+			}
 			try {
-				sigs.addAll(clazz.getConstructors());
 				new TestClassGenerator(clazz, sigs).getJavaClass().dump(clazz + "Test.class");
+				System.out.println("++++++++++++++++++++++++" + clazz + "++++++++++++++++++++++++");
 			}
 			catch (IOException e) {
 				System.out.println("Could not dump the Java bytecode for class " + clazz);
@@ -214,23 +238,13 @@ public class Program {
 	 * @param bytecode the bytecode
 	 */
 
-	// FIXME IT WORKS BUT I DON'T KNOW WHY!
 	protected void storeBytecode(Bytecode bytecode) {
 		if (bytecode instanceof FieldAccessBytecode) {
-			sigs.add(((FieldAccessBytecode) bytecode).getField());
-			//sigs.add(((FieldAccessBytecode) bytecode).getField().getDefiningClass().constructorLookup(TypeList.EMPTY));
-			sigs.addAll(((FieldAccessBytecode) bytecode).getField().getDefiningClass().getFixtures());
-			sigs.addAll(((FieldAccessBytecode) bytecode).getField().getDefiningClass().getConstructors());
-			sigs.addAll(((FieldAccessBytecode) bytecode).getField().getDefiningClass().getTests());
+			sigs.add(((FieldAccessBytecode) bytecode).getField());;
 		}
 		else if (bytecode instanceof CALL){
 			// a call instruction might call many methods or constructors at runtime
 			sigs.addAll(((CALL) bytecode).getDynamicTargets());
-			for(ClassMemberSignature cms : ((CALL) bytecode).getDynamicTargets()){
-				sigs.addAll(cms.getDefiningClass().getFixtures());
-				sigs.addAll(cms.getDefiningClass().getTests());
-				sigs.addAll(cms.getDefiningClass().getConstructors());
-			}
 		}
 	}
 }

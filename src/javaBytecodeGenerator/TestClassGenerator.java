@@ -8,16 +8,14 @@ import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 import org.apache.bcel.generic.InvokeInstruction;
 import org.apache.bcel.generic.LDC;
+import org.apache.bcel.generic.LocalVariableGen;
 import org.apache.bcel.generic.MethodGen;
 import org.apache.bcel.generic.Type;
 
 import types.ClassMemberSignature;
 import types.ClassType;
-import types.ConstructorSignature;
-import types.FieldSignature;
 import types.FixtureSignature;
 import types.TestSignature;
-import types.TypeList;
 
 /**
  * A Java bytecode generator. It transforms the Kitten intermediate language
@@ -41,29 +39,12 @@ public class TestClassGenerator extends JavaClassGenerator {
 				);
 
 		this.clazz = clazz;
-		
-		// we add the constructor
-		//clazz.constructorLookup(TypeList.EMPTY).createConstructor(this);
-		
-		// we add the constructors
-		for (ConstructorSignature constructor: clazz.getConstructors())
-			if (sigs.contains(constructor))
-				constructor.createConstructor(this);
-		
-		// we add the fields
-		for (FieldSignature field: clazz.getFields().values())
-			if (sigs.contains(field))
-				field.createField(this);
-		
 		// we add the tests
 		for (FixtureSignature fix: clazz.getFixtures())
-			if (sigs.contains(fix))
-				fix.createFixture(this);
-		
+			fix.createFixture(this);
 		// we add the fixtures
 		for (TestSignature test: clazz.getTests())
-			if (sigs.contains(test))
-				test.createTest(this);
+			test.createTest(this);
 		
 		this.createMain();
 	}
@@ -72,7 +53,6 @@ public class TestClassGenerator extends JavaClassGenerator {
 		InstructionList iList = new InstructionList();
 		iList.append(getFactory().createPrintln("Test execution for class " + this.clazz.getName()));
 		
-		// 
 		iList.append(InstructionFactory.ICONST_0);
 		iList.append(InstructionFactory.ISTORE_1);
 		
@@ -93,7 +73,7 @@ public class TestClassGenerator extends JavaClassGenerator {
 			iList.append(ilTest);
 		}
 		
-		// -- print "n tests passed, m failed [xyz ms]"
+		// print the last line "n tests passed, m failed [xyz ms]"
 		
 		// # tests passed
 		iList.append(getFactory().createGetStatic("java/lang/System", "out", 
@@ -126,10 +106,10 @@ public class TestClassGenerator extends JavaClassGenerator {
 		
 		iList.append(potatoPrint(" failed "));
 		
+		// calc and print time
 		potatoTime(iList);
-
-		iList.append(InstructionFactory.createReturn(Type.VOID));	
 		
+		iList.append(InstructionFactory.createReturn(Type.VOID));	
 		
 		
 		MethodGen methodGen;
@@ -157,7 +137,6 @@ public class TestClassGenerator extends JavaClassGenerator {
 	}
 
 	private InvokeInstruction currentMillis() {
-
 		return getFactory().createInvoke(
 				"java/lang/System", 
 				"currentTimeMillis", 

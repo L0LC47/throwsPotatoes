@@ -9,6 +9,7 @@ import types.ClassMemberSignature;
 import types.CodeSignature;
 import types.FixtureSignature;
 import types.TestSignature;
+import types.TypeList;
 import bytecode.BranchingBytecode;
 import bytecode.Bytecode;
 import bytecode.BytecodeList;
@@ -226,11 +227,16 @@ public class Block {
 	 *
 	 * @param program the program which is being cleaned-up
 	 */
-	//FIXME
+
+
 	void cleanUp(Program program) {
-		// the start method of the program is definitely called
 		program.getSigs().add(program.getStart());
-		
+		cleanUp(new HashSet<Block>(), program);
+	}
+	
+	// XXX Potato!
+	void cleanUp2(Program program, ClassMemberSignature c) {
+		program.getSigs().add(c);
 		cleanUp(new HashSet<Block>(), program);
 	}
 

@@ -9,6 +9,8 @@ import org.apache.bcel.generic.MethodGen;
 
 import translation.Block;
 import absyn.TestDeclaration;
+import bytecode.CONSTRUCTORCALL;
+import bytecode.LOAD;
 
 /**
  * The signature of a piece of code of a Kitten class.

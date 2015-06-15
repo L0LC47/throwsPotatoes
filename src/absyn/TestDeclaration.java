@@ -4,15 +4,7 @@ import java.io.FileWriter;
 import java.util.HashSet;
 import java.util.Set;
 
-import semantical.TypeChecker;
-import translation.Block;
-import types.ClassMemberSignature;
-import types.ClassType;
-import types.CodeSignature;
-import types.IntType;
-import types.TestSignature;
-import types.TypeList;
-import types.VoidType;
+import bytecode.ADD;
 import bytecode.Bytecode;
 import bytecode.BytecodeList;
 import bytecode.CALL;
@@ -22,6 +14,17 @@ import bytecode.NEWSTRING;
 import bytecode.PUTFIELD;
 import bytecode.RETURN;
 import bytecode.VIRTUALCALL;
+import semantical.TypeChecker;
+import translation.Block;
+import types.ClassMemberSignature;
+import types.ClassType;
+import types.CodeSignature;
+import types.FixtureSignature;
+import types.IntType;
+import types.MethodSignature;
+import types.TestSignature;
+import types.TypeList;
+import types.VoidType;
 
 /**
  * A node of abstract syntax representing the declaration of a constructor
@@ -138,6 +141,8 @@ public class TestDeclaration extends CodeDeclaration {
 
     public void translate(Set<ClassMemberSignature> done) {
     	if (done.add(getSignature())) {
+    		
+    		translateSomething(getSignature().getDefiningClass(), done);
     		// we translate the body of the constructor or
     		// method with a block containing RETURN as continuation. This way,
     		// all methods returning void and
@@ -172,7 +177,7 @@ public class TestDeclaration extends CodeDeclaration {
      * @param done the class member signatures already translated
      * @param blocksDone the blocks that have been already processed
      */
-
+/*
     private void translateReferenced(Block block, Set<ClassMemberSignature> done, Set<Block> blocksDone) {
     	// if we already processed the block, we return immediately
     	if (!blocksDone.add(block))
@@ -196,5 +201,5 @@ public class TestDeclaration extends CodeDeclaration {
     	for (Block follow: block.getFollows())
     		translateReferenced(follow, done, blocksDone);
     }
-    
+    */
 }

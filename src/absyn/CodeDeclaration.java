@@ -10,8 +10,8 @@ import types.CodeSignature;
 import types.ConstructorSignature;
 import types.FieldSignature;
 import types.FixtureSignature;
+import types.MethodSignature;
 import types.TestSignature;
-import types.TypeList;
 import types.VoidType;
 import bytecode.Bytecode;
 import bytecode.BytecodeList;
@@ -116,9 +116,10 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
      *
      * @param done the set of code signatures that have been already translated
      */
-
+    // XXX papa romeo echo tango
     public void translate(Set<ClassMemberSignature> done) {
     	if (done.add(sig)) {
+    		translateSomething(sig.getDefiningClass(), done);
     		// we translate the body of the constructor or
     		// method with a block containing RETURN as continuation. This way,
     		// all methods returning void and
@@ -143,8 +144,8 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
      * @param done the class member signatures already translated
      * @param blocksDone the blocks that have been already processed
      */
-
-    private void translateReferenced(Block block, Set<ClassMemberSignature> done, Set<Block> blocksDone) {
+    // XXX: private -> protected
+    protected void translateReferenced(Block block, Set<ClassMemberSignature> done, Set<Block> blocksDone) {
     	// if we already processed the block, we return immediately
     	if (!blocksDone.add(block))
     		return;
@@ -173,15 +174,8 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
     	for (Block follow: block.getFollows())
     		translateReferenced(follow, done, blocksDone);
     }
-    // TODO not tested
-    private void translateSomething(ClassType clazz, Set<ClassMemberSignature> done) {
-
- //   	clazz.constructorLookup(TypeList.EMPTY).getAbstractSyntax().translate(done);
-
-    	for(ConstructorSignature cms : clazz.getConstructors()){
-    		cms.getAbstractSyntax().translate(done);
-    	}
-    	   	
+    // XXX: private -> protected
+    protected void translateSomething(ClassType clazz, Set<ClassMemberSignature> done) {
     	for(FixtureSignature cms : clazz.getFixtures()){
     		cms.getAbstractSyntax().translate(done);
     	}
@@ -189,6 +183,9 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
     	for(TestSignature cms : clazz.getTests()){
     		cms.getAbstractSyntax().translate(done);
     	}
-
+    	
+    	for(ConstructorSignature cms : clazz.getConstructors()){
+    		cms.getAbstractSyntax().translate(done);
+    	}
     }
 }

@@ -33,7 +33,7 @@ import bytecode.BranchingBytecode;
  */
 
 @SuppressWarnings("serial")
-public class JavaClassGenerator extends ClassGen {
+public abstract class JavaClassGenerator extends ClassGen {
 
 	/**
 	 * This is a utility class of the BCEL library that helps us generate complex Java bytecodes,
@@ -57,11 +57,12 @@ public class JavaClassGenerator extends ClassGen {
 	 * @param sigs a set of class member signatures. These are those that must be translated
 	 */
 
-	public JavaClassGenerator(ClassType clazz, Set<ClassMemberSignature> sigs) {
-		super(clazz.getName(), // name of the class
+	
+	public JavaClassGenerator(String class_name, String super_class_name, String source_file) {
+		super(class_name, // name of the class
 			// the superclass of the Kitten Object class is set to be the Java java.lang.Object class
-			clazz.getSuperclass() != null ? clazz.getSuperclass().getName() : "java.lang.Object",
-			clazz.getName() + ".kit", // source file
+			super_class_name,
+			source_file, // source file
 			Constants.ACC_PUBLIC, // Java attributes: public!
 			noInterfaces, // no interfaces
 			new ConstantPoolGen()); // empty constant pool, at the beginning
@@ -70,7 +71,7 @@ public class JavaClassGenerator extends ClassGen {
 		// in the previous constant pool. This is useful for generating
 		// complex bytecodes that access the constant pool
 		this.factory = new InstructionFactory(getConstantPool());
-
+/*
 		// we add the fields
 		for (FieldSignature field: clazz.getFields().values())
 			if (sigs.contains(field))
@@ -86,6 +87,7 @@ public class JavaClassGenerator extends ClassGen {
 			for (MethodSignature method: s)
 				if (sigs.contains(method))
 					method.createMethod(this);
+*/
 	}
 
 	/**
