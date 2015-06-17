@@ -5,11 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import types.ClassMemberSignature;
 import types.CodeSignature;
-import types.FixtureSignature;
-import types.TestSignature;
-import types.TypeList;
 import bytecode.BranchingBytecode;
 import bytecode.Bytecode;
 import bytecode.BytecodeList;
@@ -231,12 +227,6 @@ public class Block {
 
 	void cleanUp(Program program) {
 		program.getSigs().add(program.getStart());
-		cleanUp(new HashSet<Block>(), program);
-	}
-	
-	// XXX Potato!
-	void cleanUp2(Program program, ClassMemberSignature c) {
-		program.getSigs().add(c);
 		cleanUp(new HashSet<Block>(), program);
 	}
 

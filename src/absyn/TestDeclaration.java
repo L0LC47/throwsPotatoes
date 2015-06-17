@@ -27,7 +27,7 @@ import types.TypeList;
 import types.VoidType;
 
 /**
- * A node of abstract syntax representing the declaration of a constructor
+ * A node of abstract syntax representing the declaration of a test
  * of a Kitten class.
  *
  * @author <A HREF="mailto:info@l0lc47.tk">L0LC47</A>
@@ -35,19 +35,19 @@ import types.VoidType;
 
 public class TestDeclaration extends CodeDeclaration {
 
-    /**
-     * The signature of this fixture or method. This is {@code null} if this
-     * fixture or method has not been type-checked yet.
-     */
+	/**
+	 * The name of the test.
+	 */
 
 	private String name;
 
 	/**
-	 * Constructs the abstract syntax of a fixture declaration.
+	 * Constructs the abstract syntax of a test declaration.
 	 *
 	 * @param pos the starting position in the source file of
 	 *            the concrete syntax represented by this abstract syntax
-	 * @param body the abstract syntax of the body of the fixture
+	 * @param name the name of the test
+	 * @param body the abstract syntax of the body of the test
 	 * @param next the abstract syntax of the declaration of the
 	 *             subsequent class member, if any
 	 */
@@ -57,7 +57,11 @@ public class TestDeclaration extends CodeDeclaration {
 		this.name = name;
 	}
 	
-
+	/**
+	 * Yields the name of this test.
+	 *
+	 * @return the name of this test
+	 */
     public String getName() {
     	return name;
     }
@@ -86,7 +90,7 @@ public class TestDeclaration extends CodeDeclaration {
 	}
 	
 	/**
-	 * Adds the signature of this fixture declaration to the given class.
+	 * Adds the signature of this test declaration to the given class.
 	 *
 	 * @param clazz the class where the signature of this fixture
 	 *              declaration must be added
@@ -104,7 +108,7 @@ public class TestDeclaration extends CodeDeclaration {
 	}
 
 	/**
-	 * Type-checks this fixture declaration. Namely, it builds a type-checker
+	 * Type-checks this test declaration. Namely, it builds a type-checker
 	 * whose only variable in scope is {@code this} of the defining class of the
 	 * fixture, and where only return instructions of type {@code void} are allowed.
 	 * It then type-checks the body of the fixture in that type-checker
@@ -151,9 +155,7 @@ public class TestDeclaration extends CodeDeclaration {
     		// precaution is useless since we know that every execution path
     		// ends with a return command, as guaranteed by
     		// checkForDeadCode() (see typeCheck() in MethodDeclaration.java)
-    		
-    		
-
+	
     		Block post = new Block(new RETURN(IntType.INSTANCE));
     		post = new CONST(0).followedBy(post);
     		post = new VIRTUALCALL(ClassType.mkFromFileName("String.kit"),
@@ -168,38 +170,4 @@ public class TestDeclaration extends CodeDeclaration {
     		
     	}
     }
-
-    /**
-     * Auxiliary method that translates into Kitten bytecode all class members that are
-     * referenced from the given block and the blocks reachable from it.
-     *
-     * @param block the block
-     * @param done the class member signatures already translated
-     * @param blocksDone the blocks that have been already processed
-     */
-/*
-    private void translateReferenced(Block block, Set<ClassMemberSignature> done, Set<Block> blocksDone) {
-    	// if we already processed the block, we return immediately
-    	if (!blocksDone.add(block))
-    		return;
-
-    	for (BytecodeList cursor = block.getBytecode(); cursor != null; cursor = cursor.getTail()) {
-    		Bytecode h = cursor.getHead();
-
-    		if (h instanceof GETFIELD) 
-    			done.add(((GETFIELD) h).getField());
-
-    		else if (h instanceof PUTFIELD) 
-    			done.add(((PUTFIELD) h).getField());
-
-    		else if (h instanceof CALL)
-    			for (CodeSignature callee: ((CALL) h).getDynamicTargets())
-    				callee.getAbstractSyntax().translate(done);
-    	}
-
-    	// we continue with the following blocks
-    	for (Block follow: block.getFollows())
-    		translateReferenced(follow, done, blocksDone);
-    }
-    */
 }

@@ -22,7 +22,7 @@ import types.TestSignature;
  * into Java bytecode that can be dumped to Java class files and run.
  * It uses the BCEL library to represent Java classes and dump them on the file-system.
  *
- * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
+ * @author <A HREF="mailto:info@l0lc47.tk">L0LC47</A>
  */
 
 
@@ -124,8 +124,6 @@ public class TestClassGenerator extends JavaClassGenerator {
 				iList,
 				this.getConstantPool()); // constant pool
 			
-			
-			
 		// we must always call these methods before the getMethod()
 		// method below. They set the number of local variables and stack
 		// elements used by the code of the method
@@ -168,7 +166,6 @@ public class TestClassGenerator extends JavaClassGenerator {
 		
 		il.insert(prima);
 		il.append(dopo);
-
 	}
 
 	private InstructionList potatoPrint(String msg) {

@@ -1,35 +1,35 @@
 class Something {
-    field int val
+    
+    /* -- FIELDS -- */
+    
     field String msg
     
-    test pippo
-        assert(1 = 1)
-    
-    test pluto
-        assert((2 + 2) = 5)
-
     constructor(){}
-  /*  
-    fixture
-        this.msg := "SPAAAACEEEE!!"
-    */    
+    
+    /* -- METHODS -- */
+    
     method void sayHello()
         "hello".output()
-    
-    method void setMsg(String message)
-        this.msg := message
-       
-    method void setVal(int val)
-        this.val := val 
     
     method void saySomething()
         this.msg.output()
 
-    method void main(){
-    Something s := new Something();
-    s.msg := "ciao";
-    "the cake is a lie\n".output()
 
+    /* -- TESTS & FIXTURES -- */
+    
+    test pippo_OK
+        assert(this.msg.equals("SPAAAACEEEE!!"))
+    
+    test pluto_KO
+        assert(this.msg.equals("CRITICAL ERROR!"))
+  
+    fixture
+        this.msg := "SPAAAACEEEE!!"
+    
+
+    /* -- MAIN -- */
+    method void main(){
+        "there is no spoon".output()
     }
     
         

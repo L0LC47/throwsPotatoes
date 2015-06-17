@@ -1,0 +1,48 @@
+class SomethingElse extends Something{
+    
+    /* -- FIELDS -- */
+    
+    field int val2
+    field String msg2
+    
+    constructor(){}
+    
+    /* -- METHODS -- */
+    
+     method void sayHello()
+        "bonjour".output()
+    
+    method void saySomething2()
+        this.msg.output()
+
+
+    /* -- TESTS & FIXTURES -- */
+    
+    test space
+        assert(this.msg.equals("SPAAAACEEEE!!"))
+    
+    test critical_error
+        assert(this.msg2.equals("CRITICAL ERROR!"))
+    
+    test messages {
+        Something s := new Something();
+        s.msg := new String(this.msg2);
+        assert(this.msg2.equals(s.msg))
+    }
+  
+    fixture
+        this.msg := "SPAAAACEEEE!!"
+        
+    fixture
+        this.msg2 := "CRITICAL ERROR!"
+    
+
+    /* -- MAIN -- */
+    method void main(){
+        Something s := new Something();
+        s.msg := "ciao";
+        "the cake is a lie\n".output()
+    }
+    
+        
+}

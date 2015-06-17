@@ -71,23 +71,6 @@ public abstract class JavaClassGenerator extends ClassGen {
 		// in the previous constant pool. This is useful for generating
 		// complex bytecodes that access the constant pool
 		this.factory = new InstructionFactory(getConstantPool());
-/*
-		// we add the fields
-		for (FieldSignature field: clazz.getFields().values())
-			if (sigs.contains(field))
-				field.createField(this);
-
-		// we add the constructors
-		for (ConstructorSignature constructor: clazz.getConstructors())
-			if (sigs.contains(constructor))
-				constructor.createConstructor(this);
-
-		// we add the methods
-		for (Set<MethodSignature> s: clazz.getMethods().values())
-			for (MethodSignature method: s)
-				if (sigs.contains(method))
-					method.createMethod(this);
-*/
 	}
 
 	/**

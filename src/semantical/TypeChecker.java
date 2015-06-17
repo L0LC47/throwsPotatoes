@@ -38,6 +38,11 @@ public class TypeChecker {
 
 	private final ErrorMsg errorMsg;
 	
+	/**
+	 * The capability to contain assert command
+	 * @HasGetter
+	 * @HasSetter 
+	 */
 	private final boolean assertAllowed;
 
 	/**
@@ -74,7 +79,6 @@ public class TypeChecker {
 		this.assertAllowed = false;
 	}
 	
-	// TODO: Javadoc
 	/**
 	 * Constructs a type-checker having a given expected return type,
 	 * a given error reporting utility, an empty symbol table and that
@@ -82,7 +86,7 @@ public class TypeChecker {
 	 *
 	 * @param returnType the expected return type
 	 * @param errorMsg the error reporting utility used to signal errors
-	 * @param assertAllowed
+	 * @param assertAllowed 
 	 */
 
 	public TypeChecker(Type returnType, ErrorMsg errorMsg, boolean assertAllowed) {
@@ -173,7 +177,6 @@ public class TypeChecker {
 		return errorMsg.anyErrors();
 	}
 	
-	// TODO: Javadoc
 	/**
 	 * Yields the type expected by this type-checker for the {@code return} commands.
 	 *
@@ -183,6 +186,7 @@ public class TypeChecker {
 	public boolean isAssertAllowed() {
 		return assertAllowed;
 	}
+	
 	
 	public String calcPos(int pos) {
 		return errorMsg.calcPos(pos);

@@ -16,7 +16,7 @@ import types.TypeList;
 import types.VoidType;
 
 /**
- * A node of abstract syntax representing a {@code return} command.
+ * A node of abstract syntax representing an assert command.
  *
  * @author <A HREF="mailto:info@l0lc47.tk">L0LC47</A>
  */

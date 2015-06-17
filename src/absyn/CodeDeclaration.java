@@ -116,7 +116,6 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
      *
      * @param done the set of code signatures that have been already translated
      */
-    // XXX papa romeo echo tango
     public void translate(Set<ClassMemberSignature> done) {
     	if (done.add(sig)) {
     		translateSomething(sig.getDefiningClass(), done);
@@ -144,7 +143,7 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
      * @param done the class member signatures already translated
      * @param blocksDone the blocks that have been already processed
      */
-    // XXX: private -> protected
+    // XXX: changed access modifier (private -> protected)
     protected void translateReferenced(Block block, Set<ClassMemberSignature> done, Set<Block> blocksDone) {
     	// if we already processed the block, we return immediately
     	if (!blocksDone.add(block))
@@ -174,7 +173,15 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
     	for (Block follow: block.getFollows())
     		translateReferenced(follow, done, blocksDone);
     }
-    // XXX: private -> protected
+    
+    /**
+     * Auxiliary method that translates into Kitten bytecode the fixtures, the test
+     * and the constructors of the given class.
+     *
+     * @param clazz the type of the class
+     * @param done the class member signatures already translated
+     */
+	// XXX: changed access modifier (private -> protected)
     protected void translateSomething(ClassType clazz, Set<ClassMemberSignature> done) {
     	for(FixtureSignature cms : clazz.getFixtures()){
     		cms.getAbstractSyntax().translate(done);

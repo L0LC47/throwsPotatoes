@@ -83,6 +83,7 @@ public abstract class CodeSignature extends ClassMemberSignature {
 
     @Override
     public String toString() {
+    	// ':' is an illegal character in some OS
     	return getDefiningClass() + "."
    			+ getName() + "(" + getParameters() + ")=" + getReturnType();
     }
