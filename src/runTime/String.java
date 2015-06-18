@@ -93,4 +93,8 @@ public class String {
 	public String substring(int start, int end) {
 		return new String(value.substring(start, end));
 	}
+	
+	public java.lang.String toString(){
+		return value;
+	}
 }

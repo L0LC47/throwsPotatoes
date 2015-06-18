@@ -156,18 +156,12 @@ public class TestDeclaration extends CodeDeclaration {
     		// ends with a return command, as guaranteed by
     		// checkForDeadCode() (see typeCheck() in MethodDeclaration.java)
 	
-    		Block post = new Block(new RETURN(IntType.INSTANCE));
-    		post = new CONST(0).followedBy(post);
-    		post = new VIRTUALCALL(ClassType.mkFromFileName("String.kit"),
-    				ClassType.mkFromFileName("String.kit").methodLookup("output", TypeList.EMPTY))
-    					.followedBy(post);
+    		Block post = new Block(new RETURN(ClassType.mk("String")));
     		post = new NEWSTRING("passed").followedBy(post);	
 
     		getSignature().setCode(getBody().translate(post));
 
     		translateReferenced(getSignature().getCode(), done, new HashSet<Block>()); 
-    		
-    		
     	}
     }
 }

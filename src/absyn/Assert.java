@@ -12,6 +12,7 @@ import types.BooleanType;
 import types.ClassType;
 import types.CodeSignature;
 import types.IntType;
+import types.ReferenceType;
 import types.TypeList;
 import types.VoidType;
 
@@ -102,15 +103,15 @@ public class Assert extends Command {
 	 * @return the code executing this command and then
 	 *         the {@code continuation}
 	 */
-
+// XXX ritorno
 	@Override
 	public Block translate(Block continuation) {
 		String out = makeFailureMessage();
-		Block failed = new Block(new RETURN(IntType.INSTANCE));
-		failed = new CONST(-1).followedBy(failed);
+		Block failed = new Block(new RETURN(ClassType.mk("String")));
+	/*	failed = new CONST(-1).followedBy(failed);
 		failed = new VIRTUALCALL(ClassType.mkFromFileName("String.kit"),
 				ClassType.mkFromFileName("String.kit").methodLookup("output", TypeList.EMPTY)).followedBy(failed);
-		failed = new NEWSTRING(out).followedBy(failed);
+		*/failed = new NEWSTRING(out).followedBy(failed);
 		
 		
 		return condition.translateAsTest(continuation, failed);

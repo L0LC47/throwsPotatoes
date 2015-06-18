@@ -20,6 +20,14 @@ class PotatoFactorial {
     test ok
         assert(this.calc(100) = this.calc(100))
         
+    test parlante {
+        "ciao\n".output();
+        "ciao\n".output();
+        "ciao\n".output();
+        assert(this.calc(100) != this.calc(100))
+        
+    }
+        
     method int calc(int n) {
         int i := 0;
         int res := 1;

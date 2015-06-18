@@ -3,8 +3,12 @@ package javaBytecodeGenerator;
 import java.util.Set;
 
 import org.apache.bcel.Constants;
+import org.apache.bcel.classfile.LocalVariable;
+import org.apache.bcel.generic.ILOAD;
+import org.apache.bcel.generic.ISTORE;
 import org.apache.bcel.generic.InstructionConstants;
 import org.apache.bcel.generic.InstructionFactory;
+import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 import org.apache.bcel.generic.InvokeInstruction;
 import org.apache.bcel.generic.LDC;
@@ -12,6 +16,7 @@ import org.apache.bcel.generic.LocalVariableGen;
 import org.apache.bcel.generic.MethodGen;
 import org.apache.bcel.generic.Type;
 
+import translation.Block;
 import types.ClassMemberSignature;
 import types.ClassType;
 import types.FixtureSignature;
@@ -50,68 +55,6 @@ public class TestClassGenerator extends JavaClassGenerator {
 	}
 	
 	public void createMain() {
-		InstructionList iList = new InstructionList();
-		iList.append(getFactory().createPrintln("Test execution for class " + this.clazz.getName()));
-		
-		iList.append(InstructionFactory.ICONST_0);
-		iList.append(InstructionFactory.ISTORE_1);
-		
-		for (TestSignature test: clazz.getTests()) {
-			InstructionList ilTest;
-			
-			// create the test
-			ilTest = potatoTest(test, clazz.getFixtures());
-			
-			// store the result of the test (0: passed, -1:failed)
-			ilTest.append(InstructionFactory.ILOAD_1);
-			ilTest.append(InstructionFactory.IADD);
-			ilTest.append(InstructionFactory.ISTORE_1);
-
-			// print the time
-			potatoTime(ilTest);
-			
-			iList.append(ilTest);
-		}
-		
-		// print the last line "n tests passed, m failed [xyz ms]"
-		
-		// # tests passed
-		iList.append(getFactory().createGetStatic("java/lang/System", "out", 
-				Type.getType(java.io.PrintStream.class)));
-		iList.append(InstructionFactory.ILOAD_1);
-		iList.append(new LDC(getConstantPool().addInteger(clazz.getTests().size())));
-		iList.append(InstructionFactory.IADD);
-		iList.append(getFactory().createInvoke(
-				"java/io/PrintStream", 
-				"print", 
-				Type.VOID, 
-				new org.apache.bcel.generic.Type[]{org.apache.bcel.generic.Type.INT},
-				org.apache.bcel.Constants.INVOKEVIRTUAL
-		));
-		
-		iList.append(potatoPrint(" test(s) passed, "));
-		
-		// # tests failed
-		iList.append(getFactory().createGetStatic("java/lang/System", "out", 
-				Type.getType(java.io.PrintStream.class)));
-		iList.append(InstructionFactory.ILOAD_1);
-		iList.append(InstructionFactory.INEG);
-		iList.append(getFactory().createInvoke(
-				"java/io/PrintStream", 
-				"print", 
-				Type.VOID, 
-				new org.apache.bcel.generic.Type[]{org.apache.bcel.generic.Type.INT},
-				org.apache.bcel.Constants.INVOKEVIRTUAL
-		));
-		
-		iList.append(potatoPrint(" failed "));
-		
-		// calc and print time
-		potatoTime(iList);
-		
-		iList.append(InstructionFactory.createReturn(Type.VOID));	
-		
-		
 		MethodGen methodGen;
 			methodGen = new MethodGen
 				(Constants.ACC_PUBLIC | Constants.ACC_STATIC, // public and static
@@ -121,9 +64,121 @@ public class TestClassGenerator extends JavaClassGenerator {
 				null, // parameters names: we do not care
 				"main", // method's name
 				this.getClassName(), // defining class
-				iList,
+				new InstructionList(),
 				this.getConstantPool()); // constant pool
+		
+		// variabili locali
+		LocalVariableGen time = methodGen.addLocalVariable("time", Type.INT, null, null);
+		LocalVariableGen testTime = methodGen.addLocalVariable("time", Type.INT, null, null);
+		LocalVariableGen count = methodGen.addLocalVariable("time", Type.INT, null, null);
+		
+		// instructions
+		InstructionList iList = new InstructionList();
+		
+		// inizializzo var locali
+		iList.append(InstructionFactory.ICONST_0);
+		iList.append(new ISTORE(count.getIndex()));
+		
+		iList.append(InstructionFactory.ICONST_0);
+		iList.append(new ISTORE(time.getIndex()));
+		
+		iList.append(InstructionFactory.ICONST_0);
+		iList.append(new ISTORE(testTime.getIndex()));	
+		
+		iList.append(getFactory().createGetStatic("java/lang/System", "out", 
+				Type.getType(java.io.PrintStream.class)));
+		
+		// costruisco stringbuffer
+		iList.append(getFactory().createNew(Type.STRINGBUFFER));
+		iList.append(InstructionFactory.DUP);
+		iList.append(new LDC(getConstantPool().
+				addString("\n \n \nTest execution for class " + this.clazz.getName() + "\n")));
+		iList.append(getFactory().createInvoke("java.lang.StringBuffer", "<init>",
+	                Type.VOID, new Type[]{Type.STRING},
+	                Constants.INVOKESPECIAL));
+
+		
+		InstructionHandle inizioTempoTot = iList.getEnd();
+		for (TestSignature test: clazz.getTests()) {
+			InstructionList ilTest = new InstructionList();
 			
+			// concat test name to stringbuffer
+			ilTest.append(new LDC(getConstantPool().addString("\t- " + test.getName() + ": ")));
+			ilTest.append(getFactory().createInvoke("java.lang.StringBuffer", "append",
+	                Type.STRINGBUFFER, new Type[]{Type.STRING},
+	                Constants.INVOKEVIRTUAL));
+
+			// create test
+			ilTest.append(potatoTest(test, clazz.getFixtures()));
+			// result
+			ilTest.append(getFactory().createInvoke("runTime/String", "toString",
+                Type.STRING, Type.NO_ARGS,
+	                Constants.INVOKEVIRTUAL));
+			ilTest.append(InstructionFactory.DUP);
+
+			ilTest.append(new LDC(getConstantPool().addString("passed")));
+			ilTest.append(getFactory().createInvoke("java/lang/String", "equals",
+	                Type.BOOLEAN, new Type[]{Type.OBJECT},
+	                Constants.INVOKEVIRTUAL));
+		
+			// add 
+			ilTest.append(new ILOAD(count.getIndex()));
+			ilTest.append(InstructionFactory.IADD);
+			ilTest.append(new ISTORE(count.getIndex()));
+						
+			// concat test result to stringbuffer
+			ilTest.append(getFactory().createInvoke("java.lang.StringBuffer", "append",
+	                Type.STRINGBUFFER, new Type[]{Type.STRING},
+	                Constants.INVOKEVIRTUAL));
+			
+			potatoTime(ilTest, testTime.getIndex());
+			iList.append(ilTest);
+		}
+		
+		// print the last line "n tests passed, m failed [xyz ms]"
+		
+		// # tests passed
+		iList.append(new ILOAD(count.getIndex()));
+		iList.append(getFactory().createInvoke("java.lang.StringBuffer", "append",
+                Type.STRINGBUFFER, new Type[]{Type.INT},
+                Constants.INVOKEVIRTUAL));
+
+		iList.append(new LDC(getConstantPool().addString(" test(s) passed ")));
+		iList.append(getFactory().createInvoke("java.lang.StringBuffer", "append",
+                Type.STRINGBUFFER, new Type[]{Type.STRING},
+                Constants.INVOKEVIRTUAL));
+				
+		
+		// # tests failed		
+		iList.append(new LDC(getConstantPool().addInteger(clazz.getTests().size())));
+		iList.append(new ILOAD(count.getIndex()));
+		iList.append(InstructionFactory.ISUB);
+		iList.append(getFactory().createInvoke("java.lang.StringBuffer", "append",
+                Type.STRINGBUFFER, new Type[]{Type.INT},
+                Constants.INVOKEVIRTUAL));
+		
+				iList.append(new LDC(getConstantPool().addString(" failed")));
+		iList.append(getFactory().createInvoke("java.lang.StringBuffer", "append",
+                Type.STRINGBUFFER, new Type[]{Type.STRING},
+                Constants.INVOKEVIRTUAL));
+				
+		potatoTime(iList, inizioTempoTot, iList.getEnd(), time.getIndex());
+	
+        iList.append(getFactory().createInvoke("java.lang.StringBuffer", "toString",
+                Type.STRING, Type.NO_ARGS,
+                Constants.INVOKEVIRTUAL));
+        
+		iList.append(getFactory().createInvoke(
+				"java/io/PrintStream", 
+				"print", 
+				Type.VOID, 
+				new org.apache.bcel.generic.Type[]{org.apache.bcel.generic.Type.STRING},
+				org.apache.bcel.Constants.INVOKEVIRTUAL
+		));
+		iList.append(InstructionFactory.createReturn(Type.VOID));
+		
+			
+		methodGen.setInstructionList(iList);
 		// we must always call these methods before the getMethod()
 		// method below. They set the number of local variables and stack
 		// elements used by the code of the method
@@ -144,49 +199,46 @@ public class TestClassGenerator extends JavaClassGenerator {
 		);
 	}
 	
-	private void potatoTime(InstructionList il) {
+	private void potatoTime(InstructionList il, int index){
+		potatoTime(il, il.getStart(), il.getEnd(), index);
+	}
+	
+	private void potatoTime(InstructionList il, InstructionHandle start, InstructionHandle end, int index) {
 		InstructionList prima = new InstructionList();
-		prima.append(getFactory().createGetStatic("java/lang/System", "out", Type.getType(java.io.PrintStream.class)));
 		prima.append(currentMillis());
+		prima.append(InstructionConstants.L2I);
+		prima.append(new ISTORE(index));
 		
 		InstructionList dopo = new InstructionList();
+		// calc time
 		dopo.append(currentMillis());
-		dopo.append(InstructionConstants.LSUB);
-		dopo.append(InstructionConstants.LNEG);
 		dopo.append(InstructionConstants.L2I);
-		dopo.append(potatoPrint(" ["));
-		dopo.append(getFactory().createInvoke(
-				"java/io/PrintStream", 
-				"print", 
-				Type.VOID, 
-				new org.apache.bcel.generic.Type[]{org.apache.bcel.generic.Type.INT},
-				org.apache.bcel.Constants.INVOKEVIRTUAL
-		));
-		dopo.append(potatoPrint("ms]\n"));
+		dopo.append(new ILOAD(index));;
+		dopo.append(InstructionFactory.ISUB);
+		dopo.append(new ISTORE(index));
+		// append time
+		dopo.append(new LDC(getConstantPool().addString(" [")));
+		dopo.append(getFactory().createInvoke("java.lang.StringBuffer", "append",
+                Type.STRINGBUFFER, new Type[]{Type.STRING},
+                Constants.INVOKEVIRTUAL));
 		
-		il.insert(prima);
-		il.append(dopo);
-	}
+		dopo.append(new ILOAD(index));
+		dopo.append(getFactory().createInvoke("java.lang.StringBuffer", "append",
+                Type.STRINGBUFFER, new Type[]{Type.INT},
+                Constants.INVOKEVIRTUAL));
+		
+		dopo.append(new LDC(getConstantPool().addString("ms]\n")));
+		dopo.append(getFactory().createInvoke("java.lang.StringBuffer", "append",
+                Type.STRINGBUFFER, new Type[]{Type.STRING},
+                Constants.INVOKEVIRTUAL));
 
-	private InstructionList potatoPrint(String msg) {
-		InstructionList il = new InstructionList();
-		il.append(getFactory().createGetStatic("java/lang/System", "out", 
-				Type.getType(java.io.PrintStream.class)));
-		il.append(new LDC(getConstantPool().addString(msg)));
-		il.append(getFactory().createInvoke(
-				"java/io/PrintStream", 
-				"print", 
-				Type.VOID, 
-				new org.apache.bcel.generic.Type[]{org.apache.bcel.generic.Type.STRING},
-				org.apache.bcel.Constants.INVOKEVIRTUAL
-		));
-		
-		return il;
+		il.append(start, prima);
+		il.append(end, dopo);
 	}
 	
 	private InstructionList potatoTest(TestSignature test, Set<FixtureSignature> fixtures) {
 		InstructionList il = new InstructionList();
-		il.append(potatoPrint("\t- Test: " + test.getName() + " "));
+		//il.append(potatoPrint("\t- Test: " + test.getName() + " "));
 		
 		// Creo un nuovo oggetto
 		il.append(getFactory().createNew(this.clazz.getName()));
@@ -225,7 +277,7 @@ public class TestClassGenerator extends JavaClassGenerator {
 		il.append(getFactory().createInvoke(
 				this.clazz.getName() + "Test", 
 				test.getName(), 
-				org.apache.bcel.generic.Type.INT, 
+				new org.apache.bcel.generic.ObjectType(runTime.String.class.getName()),
 				new org.apache.bcel.generic.Type[]{clazz.toBCEL()},
 				org.apache.bcel.Constants.INVOKESTATIC
 		));

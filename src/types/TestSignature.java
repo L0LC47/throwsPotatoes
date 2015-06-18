@@ -57,7 +57,8 @@ public class TestSignature extends CodeSignature {
 		MethodGen methodGen;
 		methodGen = new MethodGen
 		(Constants.ACC_PRIVATE | Constants.ACC_STATIC, // private and static
-		org.apache.bcel.generic.Type.INT, // return type
+		//org.apache.bcel.generic.Type.getType(runTime.String), // return type
+		new org.apache.bcel.generic.ObjectType(runTime.String.class.getName()),
 		new org.apache.bcel.generic.Type[]{getDefiningClass().toBCEL()},
 		null, // parameters names: we do not care
 		getName(), // method's name
