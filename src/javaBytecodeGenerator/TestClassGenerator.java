@@ -69,8 +69,8 @@ public class TestClassGenerator extends JavaClassGenerator {
 		
 		// variabili locali
 		LocalVariableGen time = methodGen.addLocalVariable("time", Type.INT, null, null);
-		LocalVariableGen testTime = methodGen.addLocalVariable("time", Type.INT, null, null);
-		LocalVariableGen count = methodGen.addLocalVariable("time", Type.INT, null, null);
+		LocalVariableGen testTime = methodGen.addLocalVariable("testTime", Type.INT, null, null);
+		LocalVariableGen count = methodGen.addLocalVariable("count", Type.INT, null, null);
 		
 		// instructions
 		InstructionList iList = new InstructionList();
